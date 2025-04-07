@@ -1,21 +1,49 @@
 === Visual Website Optimizer ===
-Contributors: VWO
+Contributors: vwointegrations
 Plugin Name: VWO
 Plugin URI: https://vwo.com/
-Tags: split testing, analytics, stats, visual web optimizer, vwo, cro
+Tags: vwo, a/b testing, wordpress optimization, woocommerce tracking, split testing
 Requires at least: 2.7
-Tested up to: 6.6.1
-Stable tag: 4.5
+Tested up to: 6.7.2
+Stable tag: 4.6
+License: GPLv2 or later
+License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
 VWO is the all-in-one platform that helps you conduct visitor research, build an optimization roadmap, and run continuous experimentation. 
 
 == Description ==
-This plugin will allow you to automatically insert the VWO tracking code. Just enter your VWO Account ID from https://app.vwo.com/#/settings
+
+This plugin simplifies the process of adding the VWO SmartCode to your WordPress site and enables automatic tracking of WooCommerce events like product views, add-to-cart actions, and completed purchases. It also offers optional server-side tracking to bypass client-side blockers and improve event reliability.
+
+=== Key Features ===
+* Easy VWO SmartCode integration
+* Automatic WooCommerce event tracking
+* Event-level data passed to VWO for advanced reporting
+* Support for asynchronous and synchronous SmartCode types
+* Optional server-side tracking for more accurate analytics
+* Works seamlessly with WooCommerce
 
 == Installation ==
-Wordpress : Extract the zip file and just drop the contents in the wp-content/plugins/ directory of your WordPress installation and then activate the Plugin from Plugins page.
 
-WordpressMu : Same as above 
+1. Log in to your WordPress dashboard.
+2. Navigate to Plugins > Add New.
+3. Click "Upload Plugin" and select the plugin ZIP file.
+4. Click "Install Now", then "Activate".
+5. Go to **Settings > VWO** to configure your plugin.
+
+== Frequently Asked Questions ==
+
+= What is my VWO Account ID? =
+You can find your VWO Account ID in your VWO dashboard under Account Settings.
+
+= Does this plugin support server-side tracking? =
+Yes, server-side tracking is available and can be enabled in the WooCommerce tab of the plugin settings.
+
+= What WooCommerce events are tracked automatically? =
+- Product Viewed
+- Add to Cart
+- Remove from Cart
+- Purchase (Order Completed)
 
 == Frequently Asked Questions ==
 = I can't see any code added to my header or footer when I view my page source =
@@ -25,10 +53,74 @@ Your theme needs to have the header and footer actions in place before the `</he
 No, this plugin is sufficient by itself
 
 == Screenshots ==
-1. Settings page (Asynchronous Code)
-2. Settings page (Synchronous Code)
+1. General Settings
+2. Advanced Settings
+3. WooCommerce Settings
+
+== Configuration and Setup ==
+
+=== Configuring General Settings ===
+1. Go to **Settings > VWO**.
+2. Enter your VWO Account ID.
+3. Choose your preferred code type:
+   - **Asynchronous (Recommended)**: Loads faster, doesn't block elements.
+   - **Synchronous**: Not recommended for performance reasons.
+4. Click **Save Changes**.
+
+=== Configuring WooCommerce Settings ===
+1. Open the **WooCommerce** tab in the VWO settings.
+2. Enable WooCommerce Event Tracking.
+3. Enable the specific events you want to track:
+   - Product Viewed
+   - Add to Cart
+   - Product Removed From Cart
+   - Purchase Order
+4. Click **Save Changes**.
+
+=== Configuring Server-Side Tracking (Optional) ===
+1. Enable **Server-Side Tracking** from the WooCommerce tab.
+2. Click **Save Changes**.
+
+=== Verifying Event Tracking in VWO ===
+1. Log in to your VWO account.
+2. Go to **Data360 > Events**.
+3. Perform sample actions on your WooCommerce store.
+4. Check the events list in Data360.
+5. Register any events listed under “Unregistered Events”.
+
+== WooCommerce Events Imported Into VWO ==
+
+=== Product Viewed ===
+- **Event API Name**: `woocommerce.productViewed`
+- Payload:
+  - price, currency, productId, productTitle, productUrl, productCategory, productSku, quantity, variantId
+
+=== Add To Cart ===
+- **Event API Name**: `woocommerce.addToCart`
+- Payload:
+  - price, currency, productId, productTitle, productUrl, productCategory, productSku, quantity, variantId
+
+=== Remove from Cart ===
+- **Event API Name**: `woocommerce.removeFromCart`
+- Payload:
+  - price, currency, productId, productTitle, productUrl, productCategory, productSku, quantity, variantId
+
+=== Purchase ===
+- **Event API Name**: `woocommerce.purchase`
+- Payload:
+  - orderId, productId, productSku, productPrice, productQuantity, discount, shippingPrice, totalTax, totalPrice, currencyCode
+
+== Upgrade Notice ==
+= 4.6 =
+Major update: New settings UI, WooCommerce support added, and multiple bug fixes. Upgrade recommended for improved tracking and compatibility.
 
 == ChangeLog ==
+= 4.6 =
+* Revamped plugin settings UI for improved usability.
+* Added support for WooCommerce event tracking (Product Viewed, Add to Cart, Purchase, etc.).
+* Optional server-side tracking for WooCommerce events added.
+* Multiple bug fixes and performance improvements.
+
 = 4.5 =
 * Tested with latest version
 * VWO SmartCode 2.1 updated
@@ -131,17 +223,3 @@ No, this plugin is sufficient by itself
 = 1.0 =
 * First Version
 
-== Upgrade Notice ==
-Option to choose the new asynchronous code. This will make the website load faster
-
-== Configuration ==
-
-Enter your ID in the field marked 'YOUR VWO ACCOUNT ID'
-
-== Adding to your template ==
-
-header code :
-`<?php wp_head();?>`
-
-footer code : 
-`<?php wp_footer();?>`

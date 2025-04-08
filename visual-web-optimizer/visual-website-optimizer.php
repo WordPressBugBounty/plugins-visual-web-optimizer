@@ -5,13 +5,13 @@
  * Plugin URI: https://vwo.com/
  * Description: VWO is the all-in-one platform that helps you conduct visitor research, build an optimization roadmap, and run continuous experimentation. Simply enable the plugin and start running tests on your WordPress website without doing any other code changes. Visit <a href="https://vwo.com/">VWO</a> for more details.
  * Author: VWO
- * Version: 4.6
+ * Version: 4.7
  * visual-website-optimizer.php
  * Author URI: https://vwo.com/
  *
  * @package VWO
  * @author VWO
- * @version 4.6
+ * @version 4.7
  **/
 
 /**
@@ -715,7 +715,6 @@ function vwo_clhf_render_scripts() {
                 $('.async-option').toggle(isAsync);
             }
             function toggleWooCommerceOptions() {
-                console.log('ajsbhda');
                 var isWooCommerce = $('input[name="enable_woocommerce_event_tracking"]:checked');
 
                 if(isWooCommerce.length > 0) {

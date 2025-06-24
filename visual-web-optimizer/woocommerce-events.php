@@ -29,9 +29,6 @@ function vwo_track_woocommerce_events() {
     add_action('woocommerce_cart_item_removed', 'server_vwo_track_remove_from_cart', 10, 2);
     add_action('woocommerce_after_cart', 'vwo_track_remove_from_cart', 10, 2);
 
-    add_action('woocommerce_before_checkout_form', 'vwo_track_checkout', 10, 6);
-    add_action('woocommerce_checkout_before_customer_details', 'server_vwo_track_checkout', 10, 3);
-
     add_action('woocommerce_thankyou', 'vwo_track_purchase');
     add_action('woocommerce_thankyou', 'server_vwo_track_purchase', 10, 1);
 }

@@ -5,13 +5,13 @@
  * Plugin URI: https://vwo.com/
  * Description: VWO is the all-in-one platform that helps you conduct visitor research, build an optimization roadmap, and run continuous experimentation. Simply enable the plugin and start running tests on your WordPress website without doing any other code changes. Visit <a href="https://vwo.com/">VWO</a> for more details.
  * Author: VWO
- * Version: 4.7
+ * Version: 4.8
  * visual-website-optimizer.php
  * Author URI: https://vwo.com/
  *
  * @package VWO
  * @author VWO
- * @version 4.7
+ * @version 4.8
  **/
 
 /**
@@ -297,16 +297,26 @@ function vwo_clhf_render_general_settings() {
             ]);
             ?>
         </div>
-        <div class="main-grid__description">
-            <h2>Get Started Easily</h2>
-            <p>
-				Enter your <b>VWO Account ID</b> to begin.
-				<br>
-				New to VWO?
-                <a target="_blank" href="https://vwo.com/free-trial/?utm_source=integration_wordpress&utm_medium=referral&utm_campaign=plugin_page&utm_content=config_screen_banner">Create an account</a> and start optimizing <br/>your website effortlessly.
-                <br><br><br>
-                Need help? Visit our <a target="_blank" href="https://help.vwo.com/hc/en-us/articles/360020745993-Integrating-VWO-With-WordPress">knowledge base</a>.
-            </p>
+        <div class="main-grid__description" style="width:350px;">
+        <div style="font-size: 18px; font-weight: 700; color: #000000; margin-bottom: 8px;">New to VWO?</div>
+            <div style="font-size: 14px; color: #757575; font-weight: 400; line-height: 20px; margin-bottom: 20px;">Create a free account to start optimising your website, no credit card required.</div>
+            <div>
+            <a  target="_blank" href="https://vwo.com/free-trial/?utm_source=integration_wordpress&utm_medium=referral&utm_campaign=plugin_page&utm_content=config_screen_banner" style="text-decoration: none; display: block; width: 162px; background: #fff; color: #2271B1; border: 1px solid #2271B1; padding: 10px 12px; font-size: 14px; font-weight: 600; cursor: pointer; text-align: center; border-radius: 8px;">
+             Get Started for Free</a>
+            <div>
+            <div style="margin-bottom: 28px; margin-top: 20px;">
+                <div style="font-weight: 600; color: #363A42; font-size: 14px; margin-bottom: 8px;">VWO Dashboard?</div>
+                <div style="font-size: 14px; color: #757575; font-weight: 400;">Visit our knowledge base to learn how to use the VWO dashboard.</div>
+                 <a href="https://app.vwo.com" target="_blank" style="display: inline-flex; align-items: center; color: #2271B1; border-radius: 8px; padding: 6px 12px; font-size: 12px; font-weight: 600; cursor: pointer; text-decoration: none; margin-top: 10px; border: 1px solid #2271B1;">
+                    <span style="margin-right: 4px;">Go to Dashboard</span>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 32 32">
+                        <path fill="#2271B1" d="M17.88 1v3.75h5.62l-9.38 9.38 3.76 3.74 9.37-9.37v5.63H31V1H17.87zm9.37 26.25H4.75V4.75h7.5V1H1v30h30V19.75h-3.75v7.5z"/>
+                    </svg>
+                </a>
+            </div>
+            <div style="font-size: 13px;">
+                Need help? Visit our <a style="color: inherit;" href="https://help.vwo.com/hc/en-us/articles/360020745993-Integrating-VWO-With-WordPress">Knowledge Base</a> for guides and FAQs.
+            </div>
         </div>
     </main>
     <?php

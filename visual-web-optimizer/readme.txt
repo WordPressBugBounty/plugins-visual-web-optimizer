@@ -5,7 +5,7 @@ Plugin URI: https://vwo.com/
 Tags: vwo, a/b testing, wordpress optimization, woocommerce tracking, split testing
 Requires at least: 2.7
 Tested up to: 6.7.2
-Stable tag: 4.7
+Stable tag: 4.8
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -111,13 +111,18 @@ No, this plugin is sufficient by itself
   - orderId, productId, productSku, productPrice, productQuantity, discount, shippingPrice, totalTax, totalPrice, currencyCode
 
 == Upgrade Notice ==
+
+= 4.8 =
+* New settings UI, WooCommerce support added, and multiple bug fixes. Upgrade recommended for improved tracking and compatibility.
+
+== Changelog ==
+
+= 4.8 =
+* New settings UI, WooCommerce support added, and multiple bug fixes. Upgrade recommended for improved tracking and compatibility.
+
 = 4.7 =
 * Minor bug fix
 
-= 4.6 =
-Major update: New settings UI, WooCommerce support added, and multiple bug fixes. Upgrade recommended for improved tracking and compatibility.
-
-== ChangeLog ==
 = 4.6 =
 * Revamped plugin settings UI for improved usability.
 * Added support for WooCommerce event tracking (Product Viewed, Add to Cart, Purchase, etc.).
@@ -225,4 +230,3 @@ Major update: New settings UI, WooCommerce support added, and multiple bug fixes
 
 = 1.0 =
 * First Version
-

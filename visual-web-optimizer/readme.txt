@@ -4,8 +4,8 @@ Plugin Name: VWO
 Plugin URI: https://vwo.com/
 Tags: vwo, a/b testing, wordpress optimization, woocommerce tracking, split testing
 Requires at least: 2.7
-Tested up to: 6.7.2
-Stable tag: 4.8
+Tested up to: 6.9
+Stable tag: 4.10
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -111,14 +111,25 @@ No, this plugin is sufficient by itself
   - orderId, productId, productSku, productPrice, productQuantity, discount, shippingPrice, totalTax, totalPrice, currencyCode
 
 == Upgrade Notice ==
+= 4.10 =
+VWO scripts are now always excluded from Jetpack Boost’s script deferral.
+
+= 4.9 =
+VWO SmartCode 2.2 updated with improved performance and reliability.
 
 = 4.8 =
-* New settings UI, WooCommerce support added, and multiple bug fixes. Upgrade recommended for improved tracking and compatibility.
+Major update: New settings UI, WooCommerce support added, and multiple bug fixes. Upgrade recommended for improved tracking and compatibility.
 
 == Changelog ==
+= 4.10 =
+* VWO scripts are now always excluded from Jetpack Boost’s script deferral.
+
+= 4.9 =
+* VWO SmartCode 2.2 updated
+* Improved SmartCode performance and reliability
 
 = 4.8 =
-* New settings UI, WooCommerce support added, and multiple bug fixes. Upgrade recommended for improved tracking and compatibility.
+Major update: New settings UI, WooCommerce support added, and multiple bug fixes. Upgrade recommended for improved tracking and compatibility.
 
 = 4.7 =
 * Minor bug fix
@@ -230,3 +241,4 @@ No, this plugin is sufficient by itself
 
 = 1.0 =
 * First Version
+

@@ -5,7 +5,7 @@ Plugin URI: https://vwo.com/
 Tags: vwo, a/b testing, wordpress optimization, woocommerce tracking, split testing
 Requires at least: 2.7
 Tested up to: 6.9
-Stable tag: 4.12
+Stable tag: 4.13
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -111,6 +111,9 @@ No, this plugin is sufficient by itself
   - orderId, productId, productSku, productPrice, productQuantity, discount, shippingPrice, totalTax, totalPrice, currencyCode
 
 == Upgrade Notice ==
+= 4.13 =
+Version Upgrade
+
 = 4.12 =
 Fixed the synchronous script tag attribute to support the preview debugger.
 
@@ -127,6 +130,9 @@ VWO SmartCode 2.2 updated with improved performance and reliability.
 Major update: New settings UI, WooCommerce support added, and multiple bug fixes. Upgrade recommended for improved tracking and compatibility.
 
 == Changelog ==
+= 4.13 =
+* Version upgrade
+
 = 4.12 =
 * Fixed the synchronous script tag attribute to support the preview debugger.
 

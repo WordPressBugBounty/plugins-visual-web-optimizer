@@ -1,17 +1,17 @@
 <?php
 /**
  *
- * Plugin Name: VWO
+ * Plugin Name: VWO (Wingify)
  * Plugin URI: https://vwo.com/
- * Description: VWO is the all-in-one platform that helps you conduct visitor research, build an optimization roadmap, and run continuous experimentation. Simply enable the plugin and start running tests on your WordPress website without doing any other code changes. Visit <a href="https://vwo.com/">VWO</a> for more details.
+ * Description: VWO (Wingify) is the all-in-one platform that helps you conduct visitor research, build an optimization roadmap, and run continuous experimentation. Simply enable the plugin and start running tests on your WordPress website without doing any other code changes. Visit <a href="https:///">VWO</a> for more details.
  * Author: VWO
- * Version: 4.13
+ * Version: 4.14
  * visual-website-optimizer.php
  * Author URI: https://vwo.com/
  *
  * @package VWO
  * @author VWO
- * @version 4.13
+ * @version 4.14
  **/
 
 /**
@@ -75,9 +75,15 @@ function get_vwo_clhf_script_sync_code( $vwo_id = 0 ) {
     ob_start();
     // @codingStandardsIgnoreStart
     ?>
-    <!-- Start VWO Smartcode -->
-    <script referrerPolicy="no-referrer-when-downgrade" <?php echo vwo_clhf_ignore_js_attr(); ?> src="https://dev.visualwebsiteoptimizer.com/lib/<?php echo esc_html( $vwo_id ); ?>.js"></script>
-    <!-- End VWO Smartcode -->
+    <?php if ( vwo_clhf_is_wingify_account() ) : ?>
+        <!-- Start Wingify SmartCode -->
+        <script src="https://edge.wingify.net/lib/<?php echo esc_html( $vwo_id ); ?>.js" referrerpolicy="no-referrer-when-downgrade" <?php echo vwo_clhf_ignore_js_attr(); ?>></script>
+        <!-- End Wingify SmartCode -->
+    <?php else : ?>
+        <!-- Start VWO Smartcode -->
+        <script referrerPolicy="no-referrer-when-downgrade" <?php echo vwo_clhf_ignore_js_attr(); ?> src="https://dev.visualwebsiteoptimizer.com/lib/<?php echo esc_html( $vwo_id ); ?>.js"></script>
+        <!-- End VWO Smartcode -->
+    <?php endif; ?>
     <?php
     // @codingStandardsIgnoreEnd
     $sync_script = ob_get_clean();
@@ -97,26 +103,45 @@ function get_vwo_clhf_script_async_code( $vwo_id, $settings_tolerance, $library_
     ob_start();
     // @codingStandardsIgnoreStart
     ?>
-    <!-- Start VWO Async SmartCode -->
-    <link rel="preconnect" href="https://dev.visualwebsiteoptimizer.com" />
-    <script <?php echo vwo_clhf_ignore_js_attr(); ?> type='text/javascript' id='vwoCode'>
-        /* Fix: wp-rocket (application/ld+json) */
-        window._vwo_code || (function () {
-            var w=window,
-            d=document;
-            var account_id=<?php echo esc_html( $vwo_id ); ?>,
-            version=2.2,
-            settings_tolerance=<?php echo esc_html( $settings_tolerance ); ?>,
-            library_tolerance=<?php echo esc_html( $library_tolerance ); ?>,
-            use_existing_jquery=<?php echo ( $use_existing_jquery ) ? 'true' : 'false'; ?>,
-            platform='web',
-            hide_element='body',
-            hide_element_style='opacity:0 !important;filter:alpha(opacity=0) !important;background:none !important',
-            f=0;
-            /* DO NOT EDIT BELOW THIS LINE */
-            if(f=!1,v=d.querySelector('#vwoCode'),cc={},-1<d.URL.indexOf('__vwo_disable__')||w._vwo_code)return;try{var e=JSON.parse(localStorage.getItem('_vwo_'+account_id+'_config'));cc=e&&'object'==typeof e?e:{}}catch(e){}function r(t){try{return decodeURIComponent(t)}catch(e){return t}}var s=function(){var e={combination:[],combinationChoose:[],split:[],exclude:[],uuid:null,consent:null,optOut:null},t=d.cookie||'';if(!t)return e;for(var n,i,o=/(?:^|;\s*)(?:(_vis_opt_exp_(\d+)_combi=([^;]*))|(_vis_opt_exp_(\d+)_combi_choose=([^;]*))|(_vis_opt_exp_(\d+)_split=([^:;]*))|(_vis_opt_exp_(\d+)_exclude=[^;]*)|(_vis_opt_out=([^;]*))|(_vwo_global_opt_out=[^;]*)|(_vwo_uuid=([^;]*))|(_vwo_consent=([^;]*)))/g;null!==(n=o.exec(t));)try{n[1]?e.combination.push({id:n[2],value:r(n[3])}):n[4]?e.combinationChoose.push({id:n[5],value:r(n[6])}):n[7]?e.split.push({id:n[8],value:r(n[9])}):n[10]?e.exclude.push({id:n[11]}):n[12]?e.optOut=r(n[13]):n[14]?e.optOut=!0:n[15]?e.uuid=r(n[16]):n[17]&&(i=r(n[18]),e.consent=i&&3<=i.length?i.substring(0,3):null)}catch(e){}return e}();function i(){var e=function(){if(w.VWO&&Array.isArray(w.VWO))for(var e=0;e<w.VWO.length;e++){var t=w.VWO[e];if(Array.isArray(t)&&('setVisitorId'===t[0]||'setSessionId'===t[0]))return!0}return!1}(),t='a='+account_id+'&u='+encodeURIComponent(w._vis_opt_url||d.URL)+'&vn='+version+'&ph=1'+('undefined'!=typeof platform?'&p='+platform:'')+'&st='+w.performance.now();e||((n=function(){var e,t=[],n={},i=w.VWO&&w.VWO.appliedCampaigns||{};for(e in i){var o=i[e]&&i[e].v;o&&(t.push(e+'-'+o+'-1'),n[e]=!0)}if(s&&s.combination)for(var r=0;r<s.combination.length;r++){var a=s.combination[r];n[a.id]||t.push(a.id+'-'+a.value)}return t.join('|')}())&&(t+='&c='+n),(n=function(){var e=[],t={};if(s&&s.combinationChoose)for(var n=0;n<s.combinationChoose.length;n++){var i=s.combinationChoose[n];e.push(i.id+'-'+i.value),t[i.id]=!0}if(s&&s.split)for(var o=0;o<s.split.length;o++)t[(i=s.split[o]).id]||e.push(i.id+'-'+i.value);return e.join('|')}())&&(t+='&cc='+n),(n=function(){var e={},t=[];if(w.VWO&&Array.isArray(w.VWO))for(var n=0;n<w.VWO.length;n++){var i=w.VWO[n];if(Array.isArray(i)&&'setVariation'===i[0]&&i[1]&&Array.isArray(i[1]))for(var o=0;o<i[1].length;o++){var r,a=i[1][o];a&&'object'==typeof a&&(r=a.e,a=a.v,r&&a&&(e[r]=a))}}for(r in e)t.push(r+'-'+e[r]);return t.join('|')}())&&(t+='&sv='+n)),s&&s.optOut&&(t+='&o='+s.optOut);var n=function(){var e=[],t={};if(s&&s.exclude)for(var n=0;n<s.exclude.length;n++){var i=s.exclude[n];t[i.id]||(e.push(i.id),t[i.id]=!0)}return e.join('|')}();return n&&(t+='&e='+n),s&&s.uuid&&(t+='&id='+s.uuid),s&&s.consent&&(t+='&consent='+s.consent),w.name&&-1<w.name.indexOf('_vis_preview')&&(t+='&pM=true'),w.VWO&&w.VWO.ed&&(t+='&ed='+w.VWO.ed),t}code={nonce:v&&v.nonce,use_existing_jquery:function(){return'undefined'!=typeof use_existing_jquery?use_existing_jquery:void 0},library_tolerance:function(){return'undefined'!=typeof library_tolerance?library_tolerance:void 0},settings_tolerance:function(){return cc.sT||settings_tolerance},hide_element_style:function(){return'{'+(cc.hES||hide_element_style)+'}'},hide_element:function(){return performance.getEntriesByName('first-contentful-paint')[0]?'':'string'==typeof cc.hE?cc.hE:hide_element},getVersion:function(){return version},finish:function(e){var t;f||(f=!0,(t=d.getElementById('_vis_opt_path_hides'))&&t.parentNode.removeChild(t),e&&((new Image).src='https://dev.visualwebsiteoptimizer.com/ee.gif?a='+account_id+e))},finished:function(){return f},addScript:function(e){var t=d.createElement('script');t.type='text/javascript',e.src?t.src=e.src:t.text=e.text,v&&t.setAttribute('nonce',v.nonce),d.getElementsByTagName('head')[0].appendChild(t)},load:function(e,t){t=t||{};var n=new XMLHttpRequest;n.open('GET',e,!0),n.withCredentials=!t.dSC,n.responseType=t.responseType||'text',n.onload=function(){if(t.onloadCb)return t.onloadCb(n,e);200===n.status?_vwo_code.addScript({text:n.responseText}):_vwo_code.finish('&e=loading_failure:'+e)},n.onerror=function(){if(t.onerrorCb)return t.onerrorCb(e);_vwo_code.finish('&e=loading_failure:'+e)},n.send()},init:function(){var e,t=this.settings_tolerance();w._vwo_settings_timer=setTimeout(function(){_vwo_code.finish()},t),'body'!==this.hide_element()?(n=d.createElement('style'),e=(t=this.hide_element())?t+this.hide_element_style():'',t=d.getElementsByTagName('head')[0],n.setAttribute('id','_vis_opt_path_hides'),v&&n.setAttribute('nonce',v.nonce),n.setAttribute('type','text/css'),n.styleSheet?n.styleSheet.cssText=e:n.appendChild(d.createTextNode(e)),t.appendChild(n)):(n=d.getElementsByTagName('head')[0],(e=d.createElement('div')).style.cssText='z-index: 2147483647 !important;position: fixed !important;left: 0 !important;top: 0 !important;width: 100% !important;height: 100% !important;background: white !important;',e.setAttribute('id','_vis_opt_path_hides'),e.classList.add('_vis_hide_layer'),n.parentNode.insertBefore(e,n.nextSibling));var n='https://dev.visualwebsiteoptimizer.com/j.php?'+i();-1!==w.location.search.indexOf('_vwo_xhr')?this.addScript({src:n}):this.load(n+'&x=true',{l:1})}};w._vwo_code=code;code.init();})();
-    </script>
-    <!-- End VWO Async SmartCode -->
+    <?php if ( vwo_clhf_is_wingify_account() ) : ?>
+        <!-- Start Wingify Async SmartCode -->
+        <link rel="preconnect" href="https://edge.wingify.net"/>
+        <script type='text/javascript' id="wingifyCode" <?php echo vwo_clhf_ignore_js_attr(); ?>>
+        window._wingify_code ||
+        (function () {
+        var w=window,
+        d=document;
+        var account_id=<?php echo esc_html( $vwo_id ); ?>,
+        version=2.2,
+        settings_tolerance=<?php echo esc_html( $settings_tolerance ); ?>,
+        hide_element='body',
+        hide_element_style = 'opacity:0 !important;filter:alpha(opacity=0) !important;background:none !important';
+        /* DO NOT EDIT BELOW THIS LINE */
+        var f=0, v;
+        if(f=!1,v=d.currentScript,cc={},-1<d.URL.indexOf('__wingify_disable__')||w._wingify_code)return;try{var e=JSON.parse(localStorage.getItem('_wingify_'+account_id+'_config'));cc=e&&'object'==typeof e?e:{}}catch(e){}function r(t){try{return decodeURIComponent(t)}catch(e){return t}}var s=function(){var e={combination:[],combinationChoose:[],split:[],exclude:[],uuid:null,consent:null,optOut:null},t=d.cookie||'';if(!t)return e;for(var n,i,o=/(?:^|;\s*)(?:(_vis_opt_exp_(\d+)_combi=([^;]*))|(_vis_opt_exp_(\d+)_combi_choose=([^;]*))|(_vis_opt_exp_(\d+)_split=([^:;]*))|(_vis_opt_exp_(\d+)_exclude=[^;]*)|(_vis_opt_out=([^;]*))|(_wingify_global_opt_out=[^;]*)|(_wingify_uuid=([^;]*))|(_wingify_consent=([^;]*)))/g;null!==(n=o.exec(t));)try{n[1]?e.combination.push({id:n[2],value:r(n[3])}):n[4]?e.combinationChoose.push({id:n[5],value:r(n[6])}):n[7]?e.split.push({id:n[8],value:r(n[9])}):n[10]?e.exclude.push({id:n[11]}):n[12]?e.optOut=r(n[13]):n[14]?e.optOut=!0:n[15]?e.uuid=r(n[16]):n[17]&&(i=r(n[18]),e.consent=i&&3<=i.length?i.substring(0,3):null)}catch(e){}return e}();function i(){var e=function(){if(w.Wingify&&Array.isArray(w.Wingify))for(var e=0;e<w.Wingify.length;e++){var t=w.Wingify[e];if(Array.isArray(t)&&('setVisitorId'===t[0]||'setSessionId'===t[0]))return!0}return!1}(),t='a='+account_id+'&u='+encodeURIComponent(w._vis_opt_url||d.URL)+'&vn='+version+'&ph=1'+('undefined'!=typeof platform?'&p='+platform:'')+'&st='+w.performance.now();e||((n=function(){var e,t=[],n={},i=w.Wingify&&w.Wingify.appliedCampaigns||{};for(e in i){var o=i[e]&&i[e].v;o&&(t.push(e+'-'+o+'-1'),n[e]=!0)}if(s&&s.combination)for(var r=0;r<s.combination.length;r++){var a=s.combination[r];n[a.id]||t.push(a.id+'-'+a.value)}return t.join('|')}())&&(t+='&c='+n),(n=function(){var e=[],t={};if(s&&s.combinationChoose)for(var n=0;n<s.combinationChoose.length;n++){var i=s.combinationChoose[n];e.push(i.id+'-'+i.value),t[i.id]=!0}if(s&&s.split)for(var o=0;o<s.split.length;o++)t[(i=s.split[o]).id]||e.push(i.id+'-'+i.value);return e.join('|')}())&&(t+='&cc='+n),(n=function(){var e={},t=[];if(w.Wingify&&Array.isArray(w.Wingify))for(var n=0;n<w.Wingify.length;n++){var i=w.Wingify[n];if(Array.isArray(i)&&'setVariation'===i[0]&&i[1]&&Array.isArray(i[1]))for(var o=0;o<i[1].length;o++){var r,a=i[1][o];a&&'object'==typeof a&&(r=a.e,a=a.v,r&&a&&(e[r]=a))}}for(r in e)t.push(r+'-'+e[r]);return t.join('|')}())&&(t+='&sv='+n)),s&&s.optOut&&(t+='&o='+s.optOut);var n=function(){var e=[],t={};if(s&&s.exclude)for(var n=0;n<s.exclude.length;n++){var i=s.exclude[n];t[i.id]||(e.push(i.id),t[i.id]=!0)}return e.join('|')}();return n&&(t+='&e='+n),s&&s.uuid&&(t+='&id='+s.uuid),s&&s.consent&&(t+='&consent='+s.consent),w.name&&-1<w.name.indexOf('_vis_preview')&&(t+='&pM=true'),w.Wingify&&w.Wingify.ed&&(t+='&ed='+w.Wingify.ed),t}code={script:v,nonce:v&&v.nonce,library_tolerance:function(){return'undefined'!=typeof library_tolerance?library_tolerance:void 0},settings_tolerance:function(){return cc.sT||settings_tolerance},hide_element_style:function(){return'{'+(cc.hES||hide_element_style)+'}'},hide_element:function(){return performance.getEntriesByName('first-contentful-paint')[0]?'':'string'==typeof cc.hE?cc.hE:hide_element},getVersion:function(){return version},finish:function(e){var t;f||(f=!0,(t=d.getElementById('_vis_opt_path_hides'))&&t.parentNode.removeChild(t),e&&((new Image).src='https://edge.wingify.net/ee.gif?a='+account_id+e))},finished:function(){return f},addScript:function(e){var t=d.createElement('script');t.type='text/javascript',e.src?t.src=e.src:t.text=e.text,v&&t.setAttribute('nonce',v.nonce),d.getElementsByTagName('head')[0].appendChild(t)},load:function(e,t){t=t||{};var n=new XMLHttpRequest;n.open('GET',e,!0),n.withCredentials=!t.dSC,n.responseType=t.responseType||'text',n.onload=function(){if(t.onloadCb)return t.onloadCb(n,e);200===n.status?_wingify_code.addScript({text:n.responseText}):_wingify_code.finish('&e=loading_failure:'+e)},n.onerror=function(){if(t.onerrorCb)return t.onerrorCb(e);_wingify_code.finish('&e=loading_failure:'+e)},n.send()},init:function(){var e,t=this.settings_tolerance();w._settings_timer=setTimeout(function(){_wingify_code.finish()},t),'body'!==this.hide_element()?(n=d.createElement('style'),e=(t=this.hide_element())?t+this.hide_element_style():'',t=d.getElementsByTagName('head')[0],n.setAttribute('id','_vis_opt_path_hides'),v&&n.setAttribute('nonce',v.nonce),n.setAttribute('type','text/css'),n.styleSheet?n.styleSheet.cssText=e:n.appendChild(d.createTextNode(e)),t.appendChild(n)):(n=d.getElementsByTagName('head')[0],(e=d.createElement('div')).style.cssText='z-index: 2147483647 !important;position: fixed !important;left: 0 !important;top: 0 !important;width: 100% !important;height: 100% !important;background: white !important;',e.setAttribute('id','_vis_opt_path_hides'),e.classList.add('_vis_hide_layer'),n.parentNode.insertBefore(e,n.nextSibling));var n='https://edge.wingify.net/j.php?'+i();-1!==w.location.search.indexOf('_wingify_xhr')?this.addScript({src:n}):this.load(n+'&x=true',{l:1})}};w._wingify_code=code;code.init();})();
+        </script>
+        <!-- End Wingify Async SmartCode -->
+    <?php endif; ?>
+    <?php if ( ! vwo_clhf_is_wingify_account() ) : ?>
+        <!-- Start VWO Async SmartCode -->
+        <link rel="preconnect" href="https://dev.visualwebsiteoptimizer.com"/>
+        <script type='text/javascript' id="vwoCode" <?php echo vwo_clhf_ignore_js_attr(); ?>>
+        window._vwo_code ||
+        (function () {
+        var w=window,
+        d=document;
+        var account_id=<?php echo esc_html( $vwo_id ); ?>,
+        version=2.2,
+        settings_tolerance=<?php echo esc_html( $settings_tolerance ); ?>,
+        hide_element='body',
+        hide_element_style = 'opacity:0 !important;filter:alpha(opacity=0) !important;background:none !important';
+        /* DO NOT EDIT BELOW THIS LINE */
+        var f=0, v;
+        if(f=!1,v=d.querySelector('#vwoCode'),cc={},-1<d.URL.indexOf('__vwo_disable__')||w._vwo_code)return;try{var e=JSON.parse(localStorage.getItem('_vwo_'+account_id+'_config'));cc=e&&'object'==typeof e?e:{}}catch(e){}function r(t){try{return decodeURIComponent(t)}catch(e){return t}}var s=function(){var e={combination:[],combinationChoose:[],split:[],exclude:[],uuid:null,consent:null,optOut:null},t=d.cookie||'';if(!t)return e;for(var n,i,o=/(?:^|;\s*)(?:(_vis_opt_exp_(\d+)_combi=([^;]*))|(_vis_opt_exp_(\d+)_combi_choose=([^;]*))|(_vis_opt_exp_(\d+)_split=([^:;]*))|(_vis_opt_exp_(\d+)_exclude=[^;]*)|(_vis_opt_out=([^;]*))|(_vwo_global_opt_out=[^;]*)|(_vwo_uuid=([^;]*))|(_vwo_consent=([^;]*)))/g;null!==(n=o.exec(t));)try{n[1]?e.combination.push({id:n[2],value:r(n[3])}):n[4]?e.combinationChoose.push({id:n[5],value:r(n[6])}):n[7]?e.split.push({id:n[8],value:r(n[9])}):n[10]?e.exclude.push({id:n[11]}):n[12]?e.optOut=r(n[13]):n[14]?e.optOut=!0:n[15]?e.uuid=r(n[16]):n[17]&&(i=r(n[18]),e.consent=i&&3<=i.length?i.substring(0,3):null)}catch(e){}return e}();function i(){var e=function(){if(w.VWO&&Array.isArray(w.VWO))for(var e=0;e<w.VWO.length;e++){var t=w.VWO[e];if(Array.isArray(t)&&('setVisitorId'===t[0]||'setSessionId'===t[0]))return!0}return!1}(),t='a='+account_id+'&u='+encodeURIComponent(w._vis_opt_url||d.URL)+'&vn='+version+'&ph=1'+('undefined'!=typeof platform?'&p='+platform:'')+'&st='+w.performance.now();e||((n=function(){var e,t=[],n={},i=w.VWO&&w.VWO.appliedCampaigns||{};for(e in i){var o=i[e]&&i[e].v;o&&(t.push(e+'-'+o+'-1'),n[e]=!0)}if(s&&s.combination)for(var r=0;r<s.combination.length;r++){var a=s.combination[r];n[a.id]||t.push(a.id+'-'+a.value)}return t.join('|')}())&&(t+='&c='+n),(n=function(){var e=[],t={};if(s&&s.combinationChoose)for(var n=0;n<s.combinationChoose.length;n++){var i=s.combinationChoose[n];e.push(i.id+'-'+i.value),t[i.id]=!0}if(s&&s.split)for(var o=0;o<s.split.length;o++)t[(i=s.split[o]).id]||e.push(i.id+'-'+i.value);return e.join('|')}())&&(t+='&cc='+n),(n=function(){var e={},t=[];if(w.VWO&&Array.isArray(w.VWO))for(var n=0;n<w.VWO.length;n++){var i=w.VWO[n];if(Array.isArray(i)&&'setVariation'===i[0]&&i[1]&&Array.isArray(i[1]))for(var o=0;o<i[1].length;o++){var r,a=i[1][o];a&&'object'==typeof a&&(r=a.e,a=a.v,r&&a&&(e[r]=a))}}for(r in e)t.push(r+'-'+e[r]);return t.join('|')}())&&(t+='&sv='+n)),s&&s.optOut&&(t+='&o='+s.optOut);var n=function(){var e=[],t={};if(s&&s.exclude)for(var n=0;n<s.exclude.length;n++){var i=s.exclude[n];t[i.id]||(e.push(i.id),t[i.id]=!0)}return e.join('|')}();return n&&(t+='&e='+n),s&&s.uuid&&(t+='&id='+s.uuid),s&&s.consent&&(t+='&consent='+s.consent),w.name&&-1<w.name.indexOf('_vis_preview')&&(t+='&pM=true'),w.VWO&&w.VWO.ed&&(t+='&ed='+w.VWO.ed),t}code={script:v,nonce:v&&v.nonce,library_tolerance:function(){return'undefined'!=typeof library_tolerance?library_tolerance:void 0},settings_tolerance:function(){return cc.sT||settings_tolerance},hide_element_style:function(){return'{'+(cc.hES||hide_element_style)+'}'},hide_element:function(){return performance.getEntriesByName('first-contentful-paint')[0]?'':'string'==typeof cc.hE?cc.hE:hide_element},getVersion:function(){return version},finish:function(e){var t;f||(f=!0,(t=d.getElementById('_vis_opt_path_hides'))&&t.parentNode.removeChild(t),e&&((new Image).src='https://dev.visualwebsiteoptimizer.com/ee.gif?a='+account_id+e))},finished:function(){return f},addScript:function(e){var t=d.createElement('script');t.type='text/javascript',e.src?t.src=e.src:t.text=e.text,v&&t.setAttribute('nonce',v.nonce),d.getElementsByTagName('head')[0].appendChild(t)},load:function(e,t){t=t||{};var n=new XMLHttpRequest;n.open('GET',e,!0),n.withCredentials=!t.dSC,n.responseType=t.responseType||'text',n.onload=function(){if(t.onloadCb)return t.onloadCb(n,e);200===n.status?_vwo_code.addScript({text:n.responseText}):_vwo_code.finish('&e=loading_failure:'+e)},n.onerror=function(){if(t.onerrorCb)return t.onerrorCb(e);_vwo_code.finish('&e=loading_failure:'+e)},n.send()},init:function(){var e,t=this.settings_tolerance();w._vwo_settings_timer=setTimeout(function(){_vwo_code.finish()},t),'body'!==this.hide_element()?(n=d.createElement('style'),e=(t=this.hide_element())?t+this.hide_element_style():'',t=d.getElementsByTagName('head')[0],n.setAttribute('id','_vis_opt_path_hides'),v&&n.setAttribute('nonce',v.nonce),n.setAttribute('type','text/css'),n.styleSheet?n.styleSheet.cssText=e:n.appendChild(d.createTextNode(e)),t.appendChild(n)):(n=d.getElementsByTagName('head')[0],(e=d.createElement('div')).style.cssText='z-index: 2147483647 !important;position: fixed !important;left: 0 !important;top: 0 !important;width: 100% !important;height: 100% !important;background: white !important;',e.setAttribute('id','_vis_opt_path_hides'),e.classList.add('_vis_hide_layer'),n.parentNode.insertBefore(e,n.nextSibling));var n='https://dev.visualwebsiteoptimizer.com/j.php?'+i();-1!==w.location.search.indexOf('_vwo_xhr')?this.addScript({src:n}):this.load(n+'&x=true',{l:1})}};w._vwo_code=code;code.init();})();
+        </script>
+        <!-- End VWO Async SmartCode -->
+
+    <?php endif; ?>
     <?php
     // @codingStandardsIgnoreEnd
     $async_script = ob_get_clean();
@@ -188,6 +213,10 @@ function vwo_clhf_headercode() {
     $code_type = get_option( 'code_type' );
 
     if ( $vwo_id ) {
+        if ( null === get_option( 'is_wingify_account', null ) ) {
+            vwo_clhf_fetch_and_save_account_info( $vwo_id );
+        }
+
         if ( empty( get_option( 'vwo_clicks' ) ) ) {
             update_option( 'vwo_clicks', '10' );
         }
@@ -239,7 +268,9 @@ function vwo_clhf_plugin_options() {
 
     ?>
     <div class="wrap">
-        <h1 style="margin-bottom: 15px;"><img src="https://static.wingify.com/gcp/images/vwo-logo-color.svg" alt="VWO Logo" style="vertical-align: middle; margin-right: 10px; margin-top: -5px; height: 20px;">Configuration</h1>
+        <h1 style="margin-bottom: 15px;display: flex; align-items: center; gap:6px;">
+         <svg xmlns="http://www.w3.org/2000/svg" width="200" height="46.212" fill="none" viewBox="0 0 300 46.212"><path fill="#3100BE" d="M232.627 30.085c0 -1.501 0.889 -2.389 2.758 -2.665l4.32 -0.613v1.164c0 2.604 -1.869 4.442 -4.442 4.442 -1.746 0 -2.635 -0.827 -2.635 -2.329M190.961 19.455v-5.667h8.089c2.114 0 2.972 0.827 2.972 2.818 0 1.961 -0.889 2.88 -2.972 2.88zm0 11.274v-6.25h7.936c2.604 0 3.89 0.981 3.89 2.972 0 2.114 -1.348 3.248 -3.89 3.248zm-24.723 -6.739 3.523 -9.742h0.245l3.492 9.742zm107.748 11.764h4.504V31.28h-2.696c-1.103 0 -1.501 -0.398 -1.501 -1.501v-8.273h6.617l5.82 14.645c0.552 1.379 -0.092 2.267 -1.623 2.267h-3.798v4.473h3.92c3.646 0 5.331 -1.133 6.464 -4.32l7.69 -21.507v-0.092h-5.576l-4.074 13.112h-0.245l-4.504 -13.112h-10.722V11.061h-5.27v5.913h-3.095v4.504h3.125v9.25c0 3.677 1.348 5.025 4.963 5.025m-40.317 0.795c2.604 0 4.748 -1.071 6.036 -2.971h0.245c0.552 1.532 2.267 2.605 4.442 2.605 1.838 0 3.217 -0.797 4.075 -2.359 1.93 1.532 4.657 2.389 7.843 2.389 5.698 0 9.344 -2.758 9.344 -7.015 0 -3.248 -2.145 -4.933 -7.292 -5.545l-2.42 -0.276c-1.839 -0.184 -2.39 -0.521 -2.39 -1.287 0 -1.072 1.011 -1.715 2.665 -1.715 1.777 0 3.37 0.827 4.197 2.205l4.718 -2.053c-1.501 -2.604 -4.902 -4.288 -8.945 -4.288 -4.841 0 -7.936 2.389 -7.936 6.127 0 3.217 2.329 5.117 6.955 5.73l2.543 0.367c1.808 0.245 2.604 0.705 2.604 1.623 0 1.133 -1.256 1.992 -3.585 1.992 -2.603 0 -4.503 -1.073 -5.269 -2.972l-2.358 1.502c-0.889 0.582 -1.624 0.827 -2.421 0.858 -1.286 -0.092 -1.777 -0.552 -1.777 -1.685V23.038c0 -4.657 -2.543 -6.74 -8.241 -6.74 -5.178 0 -7.996 1.808 -8.793 5.576l5.361 0.95c0.307 -1.439 1.502 -2.236 3.37 -2.236 2.052 0 3.033 0.858 3.033 2.696v0.183l-6.005 0.889c-3.952 0.582 -6.311 2.911 -6.311 6.372 0 3.492 2.481 5.821 6.311 5.821m-16.513 -0.795h5.821V13.786h9.068v-5.024h-23.161v5.024h8.272zm-31.985 0h15.196c5.3 0 8.394 -2.758 8.394 -7.414 0 -3.523 -1.808 -5.729 -5.208 -6.464v-0.245c2.971 -1.011 4.442 -3.033 4.442 -6.158 0 -4.381 -2.789 -6.709 -8.058 -6.709h-14.767zm-29.043 0h5.882l2.421 -6.74h10.876l2.42 6.74h6.158v-0.092l-10.386 -26.93h-7.015l-10.355 26.93zM155.76 0l-8.272 35.753h-33.516l7.965 3.4 -0.613 2.666h-18.045l4.473 2.053 -0.459 2.083h-9.099l3.339 -14.492h5.3l3.615 -15.409h10.048L124.173 0z"/><path fill="#BF3078" d="M76.678 8.619c-0.564 0 -1.24 0 -1.804 0.111l-3.27 5.695c1.466 -0.893 3.27 -1.339 5.074 -1.339 5.864 0 10.713 4.801 10.713 10.608 0 5.806 -4.849 10.608 -10.713 10.608s-10.599 -4.689 -10.712 -10.496l-3.383 5.695c2.255 5.471 7.78 9.267 13.983 9.267 8.344 0 15.223 -6.811 15.223 -15.073 0.112 -8.263 -6.766 -15.074 -15.111 -15.074"/><path fill="#802050" d="m30.671 24.363 2.593 -4.467 5.864 9.938 6.765 -11.501 6.766 11.5 11.615 -19.54c0.564 -1.005 1.691 -1.675 2.932 -1.675h3.27L52.659 38.767l-6.765 -11.5 -6.766 11.5z"/><path fill="#26134D" d="M35.52 8.619 17.705 38.767 -0.001 8.619h3.27c1.241 0 2.368 0.67 2.932 1.674L17.705 29.946l11.614 -19.652c0.564 -1.005 1.692 -1.675 2.932 -1.675z"/></svg><span>Configuration</span>
+        </h1>
 
         <form method="post" action="options.php" novalidate>
             <?php
@@ -308,16 +339,16 @@ function vwo_clhf_render_general_settings() {
             ?>
         </div>
         <div class="main-grid__description" style="width:350px;">
-        <div style="font-size: 18px; font-weight: 700; color: #000000; margin-bottom: 8px;">New to VWO?</div>
+        <div style="font-size: 18px; font-weight: 700; color: #000000; margin-bottom: 8px;">New to VWO (Wingify)?</div>
             <div style="font-size: 14px; color: #757575; font-weight: 400; line-height: 20px; margin-bottom: 20px;">Create a free account to start optimising your website, no credit card required.</div>
             <div>
             <a  target="_blank" href="https://vwo.com/free-trial/?utm_source=integration_wordpress&utm_medium=referral&utm_campaign=plugin_page&utm_content=config_screen_banner" style="text-decoration: none; display: block; width: 162px; background: #fff; color: #2271B1; border: 1px solid #2271B1; padding: 10px 12px; font-size: 14px; font-weight: 600; cursor: pointer; text-align: center; border-radius: 8px;">
              Get Started for Free</a>
             <div>
             <div style="margin-bottom: 28px; margin-top: 20px;">
-                <div style="font-weight: 600; color: #363A42; font-size: 14px; margin-bottom: 8px;">VWO Dashboard?</div>
+                <div style="font-weight: 600; color: #363A42; font-size: 14px; margin-bottom: 8px;">VWO (Wingify) Dashboard?</div>
                 <div style="font-size: 14px; color: #757575; font-weight: 400;">Visit our knowledge base to learn how to use the VWO dashboard.</div>
-                 <a href="https://app.vwo.com" target="_blank" style="display: inline-flex; align-items: center; color: #2271B1; border-radius: 8px; padding: 6px 12px; font-size: 12px; font-weight: 600; cursor: pointer; text-decoration: none; margin-top: 10px; border: 1px solid #2271B1;">
+                 <a href="https://app.wingify.com" target="_blank" style="display: inline-flex; align-items: center; color: #2271B1; border-radius: 8px; padding: 6px 12px; font-size: 12px; font-weight: 600; cursor: pointer; text-decoration: none; margin-top: 10px; border: 1px solid #2271B1;">
                     <span style="margin-right: 4px;">Go to Dashboard</span>
                     <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 32 32">
                         <path fill="#2271B1" d="M17.88 1v3.75h5.62l-9.38 9.38 3.76 3.74 9.37-9.37v5.63H31V1H17.87zm9.37 26.25H4.75V4.75h7.5V1H1v30h30V19.75h-3.75v7.5z"/>
@@ -423,12 +454,6 @@ function vwo_clhf_render_woocommerce_settings() {
                 'description' => 'This event logs an instance where a customer removes a product from their cart.',
                 'readmore_link' => 'https://help.vwo.com/hc/en-us/articles/360020745993-Integrating-VWO-With-WordPress'
             ]);
-            // vwo_clhf_render_woocommerce_event_tracking([
-            //     'id' => 'track_checkout',
-            //     'label' => 'Checkout Page',
-            //     'description' => 'This event logs an instance where a customer visits the checkout page.',
-            //     'readmore_link' => 'https://help.vwo.com/hc/en-us/articles/360020745993-Integrating-VWO-With-WordPress'
-            // ]);
             vwo_clhf_render_woocommerce_event_tracking([
                 'id' => 'track_purchase',
                 'label' => 'Purchase Order',
@@ -848,6 +873,70 @@ function vwo_clhf_validate_settings() {
     return $has_errors;
 }
 
+/**
+ * Whether the configured account is a Wingify account.
+ *
+ * @return bool
+ */
+function vwo_clhf_is_wingify_account() {
+    return '1' === get_option( 'is_wingify_account' );
+}
+
+/**
+ * Fetch account info from VWO API and save collUrl and is_wingify_account options.
+ *
+ * @param int|string $vwo_id VWO Account ID.
+ * @return string Collection URL if available, empty string otherwise.
+ */
+function vwo_clhf_fetch_and_save_account_info( $vwo_id ) {
+    $coll_url = '';
+
+    if ( empty( $vwo_id ) || ! is_numeric( $vwo_id ) ) {
+        return $coll_url;
+    }
+
+    $api_url  = 'https://edge.wingify.net/accInfo?a=' . $vwo_id;
+    $response = wp_remote_get(
+        $api_url,
+        array(
+            'timeout'   => 15,
+            'sslverify' => false,
+            'headers'   => array(
+                'Accept-Encoding' => 'gzip, deflate, br',
+                'User-Agent'      => 'vwo-woocommerce-plugin',
+            ),
+        )
+    );
+
+    if ( is_wp_error( $response ) ) {
+        return $coll_url;
+    }
+
+    $body = wp_remote_retrieve_body( $response );
+    if ( empty( $body ) ) {
+        return $coll_url;
+    }
+
+    $data = json_decode( $body, true );
+  
+    if ( ! is_array( $data ) ) {
+        return $coll_url;
+    }
+
+    if ( ! empty( $data['collUrl'] ) ) {
+        $coll_url = $data['collUrl'];
+        update_option( 'vwo_coll_url', sanitize_text_field( $data['collUrl'] ) );
+    }
+
+    if ( isset( $data['wd'] ) && $data['wd'] ) {
+        update_option( 'is_wingify_account', '1' );
+    } else {
+        update_option( 'is_wingify_account', '' );
+    }
+   
+    return $coll_url;
+}
+
 // Add this new function to sanitize and validate settings
 function vwo_clhf_sanitize_settings($input) {
     // Sanitize and validate VWO Account ID
@@ -860,7 +949,9 @@ function vwo_clhf_sanitize_settings($input) {
     // Check if vwo_id is changed
     $current_vwo_id = get_option('vwo_id');
     if ($current_vwo_id !== $vwo_id) {
-        update_option('vwo_coll_url','');
+        update_option( 'vwo_coll_url', '' );
+        delete_option( 'is_wingify_account' );
+        vwo_clhf_fetch_and_save_account_info( $vwo_id );
     }
     return $vwo_id;
 }

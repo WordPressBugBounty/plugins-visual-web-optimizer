@@ -1,11 +1,11 @@
 === Visual Website Optimizer ===
 Contributors: vwointegrations
-Plugin Name: VWO
+Plugin Name: VWO (Wingify)
 Plugin URI: https://vwo.com/
-Tags: vwo, a/b testing, wordpress optimization, woocommerce tracking, split testing
+Tags: vwo, a/b testing, wordpress optimization, woocommerce tracking, split testing, wingify
 Requires at least: 2.7
-Tested up to: 6.9
-Stable tag: 4.13
+Tested up to: 7.0
+Stable tag: 4.14
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -16,7 +16,7 @@ VWO is the all-in-one platform that helps you conduct visitor research, build an
 This plugin simplifies the process of adding the VWO SmartCode to your WordPress site and enables automatic tracking of WooCommerce events like product views, add-to-cart actions, and completed purchases. It also offers optional server-side tracking to bypass client-side blockers and improve event reliability.
 
 === Key Features ===
-* Easy VWO SmartCode integration
+* Easy VWO (Wingify) SmartCode integration
 * Automatic WooCommerce event tracking
 * Event-level data passed to VWO for advanced reporting
 * Support for asynchronous and synchronous SmartCode types
@@ -111,6 +111,9 @@ No, this plugin is sufficient by itself
   - orderId, productId, productSku, productPrice, productQuantity, discount, shippingPrice, totalTax, totalPrice, currencyCode
 
 == Upgrade Notice ==
+= 4.14 =
+* Added support for Wingify SmartCode detection and script delivery for relevant accounts. Users with Wingify accounts will now get the optimized SmartCode automatically.
+
 = 4.13 =
 Version Upgrade
 
@@ -130,6 +133,9 @@ VWO SmartCode 2.2 updated with improved performance and reliability.
 Major update: New settings UI, WooCommerce support added, and multiple bug fixes. Upgrade recommended for improved tracking and compatibility.
 
 == Changelog ==
+= 4.14 =
+* Added support for Wingify SmartCode detection and script delivery for relevant accounts. Users with Wingify accounts will now get the optimized SmartCode automatically.
+
 = 4.13 =
 * Version upgrade
 

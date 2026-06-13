@@ -203,6 +203,22 @@ function get_order_data( $order ) {
     return $order_data;
 }
 
+/**
+ * Get visitor ID from VWO or Wingify cookie.
+ *
+ * @return string
+ */
+function vwo_get_visitor_id() {
+    if ( ! empty( $_COOKIE['_vwo_uuid'] ) ) {
+        return sanitize_text_field( wp_unslash( $_COOKIE['_vwo_uuid'] ) );
+    }
+
+    if ( ! empty( $_COOKIE['_wingify_uuid'] ) ) {
+        return sanitize_text_field( wp_unslash( $_COOKIE['_wingify_uuid'] ) );
+    }
+
+    return '';
+}
 
 function server_vwo_track_product_view() {
     $server_side_enabled = get_option('vwo_server_side_tracking', false);
@@ -210,7 +226,7 @@ function server_vwo_track_product_view() {
     if (!$server_side_enabled || !$track_product_view  ||  !is_product())
         return;
     global $product;
-    $vis_id = isset($_COOKIE['_vwo_uuid']) ? $_COOKIE['_vwo_uuid'] : '';
+    $vis_id = vwo_get_visitor_id();
     // if (!$vis_id) return;
     $eventName="woocommerce.productViewed";
     $categories = get_product_categories( $product->get_id() );
@@ -259,7 +275,7 @@ function server_vwo_track_add_to_cart($cart_item_key, $product_id, $quantity, $v
     if (!$server_side_enabled || !$track_add_to_cart)
         return;
     $eventName= "woocommerce.addToCart";
-    $vis_id = isset($_COOKIE['_vwo_uuid']) ? $_COOKIE['_vwo_uuid'] : '';
+    $vis_id = vwo_get_visitor_id();
     // if (!$vis_id) return;
     $product_data= get_product_data($product_id);
     $categories = get_product_categories($product_id);
@@ -307,7 +323,7 @@ function server_vwo_track_remove_from_cart($cart_item_key, $cart){
     if (!$server_side_enabled || !$track_remove_from_cart)
         return;
     $eventName= "woocommerce.removeFromCart";
-    $vis_id = isset($_COOKIE['_vwo_uuid']) ? $_COOKIE['_vwo_uuid'] : '';
+    $vis_id = vwo_get_visitor_id();
     // if (!$vis_id) return;
     $cart_item = $cart->removed_cart_contents[$cart_item_key];
     $product_id= $cart_item['product_id'];
@@ -352,7 +368,7 @@ function server_vwo_track_checkout(){
     if (!$server_side_enabled || !$track_checkout)
         return;
     $eventName= "woocommerce.checkoutStarted";
-    $vis_id = isset($_COOKIE['_vwo_uuid']) ? $_COOKIE['_vwo_uuid'] : '';
+    $vis_id = vwo_get_visitor_id();
     // if (!$vis_id) return;
 
     $event_data = array(
@@ -384,7 +400,7 @@ function server_vwo_track_purchase($order_id){
     if (!$server_side_enabled || ! $track_purchase)
         return;
     $eventName= "woocommerce.purchase";
-    $vis_id = isset($_COOKIE['_vwo_uuid']) ? $_COOKIE['_vwo_uuid'] : '';
+    $vis_id = vwo_get_visitor_id();
     // if (!$vis_id) return;
     $order = wc_get_order($order_id);
     $order_data = get_order_data( $order);
@@ -440,35 +456,7 @@ function vwo_send_event_to_vwo($eventName, $eventData) {
     return $response;
 }
 function vwo_clhf_fetch_and_save_coll_url($vwo_id) {
-
-    if (empty($vwo_id) || !is_numeric($vwo_id)) {
-        return;
-    }
-
-    $api_url = "https://dev.visualwebsiteoptimizer.com/accInfo?a=" . $vwo_id;
-    $response = wp_remote_get($api_url, array(
-        'timeout' => 15,
-        'sslverify' => false, // Sometimes WordPress has SSL issues
-        'headers' => array(
-            'Accept-Encoding' => 'gzip, deflate, br',
-            'User-Agent' => 'vwo-woocommerce-plugin'
-        )
-    ));
-    if (is_wp_error($response)) {
-        return;
-    }
-    $http_code = wp_remote_retrieve_response_code($response);
-    // Extract body
-    $body = wp_remote_retrieve_body($response);
-    if (empty($body)) {
-        return '';
-    }
-    $data = json_decode($body, true);
-    if (!empty($data['collUrl'])) {
-        $collUrl=$data['collUrl'];
-        update_option('vwo_coll_url', sanitize_text_field($data['collUrl']));
-    }
-    return $collUrl;
+    return vwo_clhf_fetch_and_save_account_info($vwo_id);
 }
 
 ?>

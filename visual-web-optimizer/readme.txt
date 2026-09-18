@@ -1,24 +1,26 @@
-=== Visual Website Optimizer ===
+=== Wingify ===
 Contributors: vwointegrations
-Plugin Name: VWO (Wingify)
-Plugin URI: https://vwo.com/
-Tags: vwo, a/b testing, wordpress optimization, woocommerce tracking, split testing, wingify
+Plugin Name: Wingify
+Plugin URI: https://wingify.com/
+Tags: vwo, wingify, a/b testing, woocommerce tracking, split testing
 Requires at least: 2.7
 Tested up to: 7.0
-Stable tag: 4.14
+Stable tag: 4.16
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
-VWO is the all-in-one platform that helps you conduct visitor research, build an optimization roadmap, and run continuous experimentation. 
+Wingify (formerly VWO & AB Tasty) is the all-in-one platform for visitor research, optimization, and experimentation.
 
 == Description ==
 
-This plugin simplifies the process of adding the VWO SmartCode to your WordPress site and enables automatic tracking of WooCommerce events like product views, add-to-cart actions, and completed purchases. It also offers optional server-side tracking to bypass client-side blockers and improve event reliability.
+Wingify (formerly VWO & AB Tasty) is the all-in-one platform that helps you conduct visitor research, build an optimization roadmap, and run continuous experimentation.
+
+This plugin simplifies the process of adding the Wingify SmartCode to your WordPress site and enables automatic tracking of WooCommerce events like product views, add-to-cart actions, and completed purchases. It also offers optional server-side tracking to bypass client-side blockers and improve event reliability.
 
 === Key Features ===
-* Easy VWO (Wingify) SmartCode integration
+* Easy Wingify SmartCode integration
 * Automatic WooCommerce event tracking
-* Event-level data passed to VWO for advanced reporting
+* Event-level data passed to Wingify for advanced reporting
 * Support for asynchronous and synchronous SmartCode types
 * Optional server-side tracking for more accurate analytics
 * Works seamlessly with WooCommerce
@@ -29,12 +31,12 @@ This plugin simplifies the process of adding the VWO SmartCode to your WordPress
 2. Navigate to Plugins > Add New.
 3. Click "Upload Plugin" and select the plugin ZIP file.
 4. Click "Install Now", then "Activate".
-5. Go to **Settings > VWO** to configure your plugin.
+5. Go to **Settings > Wingify** to configure your plugin.
 
 == Frequently Asked Questions ==
 
-= What is my VWO Account ID? =
-You can find your VWO Account ID in your VWO dashboard under Account Settings.
+= What is my Wingify Account ID? =
+You can find your Wingify Account ID in your Wingify dashboard under Account Settings.
 
 = Does this plugin support server-side tracking? =
 Yes, server-side tracking is available and can be enabled in the WooCommerce tab of the plugin settings.
@@ -60,15 +62,15 @@ No, this plugin is sufficient by itself
 == Configuration and Setup ==
 
 === Configuring General Settings ===
-1. Go to **Settings > VWO**.
-2. Enter your VWO Account ID.
+1. Go to **Settings > Wingify**.
+2. Enter your Wingify Account ID.
 3. Choose your preferred code type:
    - **Asynchronous (Recommended)**: Loads faster, doesn't block elements.
    - **Synchronous**: Not recommended for performance reasons.
 4. Click **Save Changes**.
 
 === Configuring WooCommerce Settings ===
-1. Open the **WooCommerce** tab in the VWO settings.
+1. Open the **WooCommerce** tab in the Wingify settings.
 2. Enable WooCommerce Event Tracking.
 3. Enable the specific events you want to track:
    - Product Viewed
@@ -81,14 +83,14 @@ No, this plugin is sufficient by itself
 1. Enable **Server-Side Tracking** from the WooCommerce tab.
 2. Click **Save Changes**.
 
-=== Verifying Event Tracking in VWO ===
-1. Log in to your VWO account.
+=== Verifying Event Tracking in Wingify ===
+1. Log in to your Wingify account.
 2. Go to **Data360 > Events**.
 3. Perform sample actions on your WooCommerce store.
 4. Check the events list in Data360.
 5. Register any events listed under “Unregistered Events”.
 
-== WooCommerce Events Imported Into VWO ==
+== WooCommerce Events Imported Into Wingify ==
 
 === Product Viewed ===
 - **Event API Name**: `woocommerce.productViewed`
@@ -111,6 +113,12 @@ No, this plugin is sufficient by itself
   - orderId, productId, productSku, productPrice, productQuantity, discount, shippingPrice, totalTax, totalPrice, currencyCode
 
 == Upgrade Notice ==
+= 4.16 =
+Updates the Wingify plugin icon and WordPress.org listing. Your Account ID and SmartCode settings stay the same; no extra setup is required.
+
+= 4.15 =
+Plugin display name, settings labels, and help links now use Wingify (formerly VWO). Existing Account ID settings are unchanged.
+
 = 4.14 =
 * Added support for Wingify SmartCode detection and script delivery for relevant accounts. Users with Wingify accounts will now get the optimized SmartCode automatically.
 
@@ -133,6 +141,12 @@ VWO SmartCode 2.2 updated with improved performance and reliability.
 Major update: New settings UI, WooCommerce support added, and multiple bug fixes. Upgrade recommended for improved tracking and compatibility.
 
 == Changelog ==
+= 4.16 =
+* Updated plugin icon and listing copy.
+
+= 4.15 =
+* Updated plugin branding to Wingify.
+
 = 4.14 =
 * Added support for Wingify SmartCode detection and script delivery for relevant accounts. Users with Wingify accounts will now get the optimized SmartCode automatically.
 

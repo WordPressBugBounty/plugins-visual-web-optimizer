@@ -1,17 +1,17 @@
 <?php
 /**
  *
- * Plugin Name: VWO (Wingify)
- * Plugin URI: https://vwo.com/
- * Description: VWO (Wingify) is the all-in-one platform that helps you conduct visitor research, build an optimization roadmap, and run continuous experimentation. Simply enable the plugin and start running tests on your WordPress website without doing any other code changes. Visit <a href="https:///">VWO</a> for more details.
- * Author: VWO
- * Version: 4.14
+ * Plugin Name: Wingify
+ * Plugin URI: https://wingify.com/
+ * Description: Wingify (formerly VWO & AB Tasty) is the all-in-one platform that helps you conduct visitor research, build an optimization roadmap, and run continuous experimentation. Simply enable the plugin and start running tests on your WordPress website without doing any other code changes. Visit <a href="https://wingify.com/">Wingify</a> for more details.
+ * Author: Wingify
+ * Version: 4.16
  * visual-website-optimizer.php
- * Author URI: https://vwo.com/
+ * Author URI: https://wingify.com/
  *
- * @package VWO
- * @author VWO
- * @version 4.14
+ * @package Wingify
+ * @author Wingify
+ * @version 4.16
  **/
 
 /**
@@ -23,11 +23,11 @@ function get_vwo_clhf_script_common_code( $vwo_clicks = 10 ) {
     ob_start();
     // @codingStandardsIgnoreStart
     ?>
-    <!-- Start VWO Common Smartcode -->
+    <!-- Start Wingify Common Smartcode -->
     <script <?php echo vwo_clhf_ignore_js_attr(); ?> type='text/javascript'>
         var _vwo_clicks = <?php echo esc_html( $vwo_clicks ); ?>;
     </script>
-    <!-- End VWO Common Smartcode -->
+    <!-- End Wingify Common Smartcode -->
     <?php
     // @codingStandardsIgnoreEnd
     $script_code = ob_get_clean();
@@ -56,7 +56,7 @@ function vwo_clhf_ignore_js_attr() {
     if ( function_exists( 'get_vwo_clhf_ignore_js' ) && $ignore_js ) {
         $js_attr = 'data-cfasync="false" nowprocket';
     }
-    // Always exclude VWO scripts from Jetpack Boost deferral
+    // Always exclude Wingify scripts from Jetpack Boost deferral
     if ( ! empty( $js_attr ) ) {
         $js_attr .= ' data-jetpack-boost="ignore"';
     } else {
@@ -80,9 +80,9 @@ function get_vwo_clhf_script_sync_code( $vwo_id = 0 ) {
         <script src="https://edge.wingify.net/lib/<?php echo esc_html( $vwo_id ); ?>.js" referrerpolicy="no-referrer-when-downgrade" <?php echo vwo_clhf_ignore_js_attr(); ?>></script>
         <!-- End Wingify SmartCode -->
     <?php else : ?>
-        <!-- Start VWO Smartcode -->
+        <!-- Start Wingify Smartcode -->
         <script referrerPolicy="no-referrer-when-downgrade" <?php echo vwo_clhf_ignore_js_attr(); ?> src="https://dev.visualwebsiteoptimizer.com/lib/<?php echo esc_html( $vwo_id ); ?>.js"></script>
-        <!-- End VWO Smartcode -->
+        <!-- End Wingify Smartcode -->
     <?php endif; ?>
     <?php
     // @codingStandardsIgnoreEnd
@@ -123,7 +123,7 @@ function get_vwo_clhf_script_async_code( $vwo_id, $settings_tolerance, $library_
         <!-- End Wingify Async SmartCode -->
     <?php endif; ?>
     <?php if ( ! vwo_clhf_is_wingify_account() ) : ?>
-        <!-- Start VWO Async SmartCode -->
+        <!-- Start Wingify Async SmartCode -->
         <link rel="preconnect" href="https://dev.visualwebsiteoptimizer.com"/>
         <script type='text/javascript' id="vwoCode" <?php echo vwo_clhf_ignore_js_attr(); ?>>
         window._vwo_code ||
@@ -139,7 +139,7 @@ function get_vwo_clhf_script_async_code( $vwo_id, $settings_tolerance, $library_
         var f=0, v;
         if(f=!1,v=d.querySelector('#vwoCode'),cc={},-1<d.URL.indexOf('__vwo_disable__')||w._vwo_code)return;try{var e=JSON.parse(localStorage.getItem('_vwo_'+account_id+'_config'));cc=e&&'object'==typeof e?e:{}}catch(e){}function r(t){try{return decodeURIComponent(t)}catch(e){return t}}var s=function(){var e={combination:[],combinationChoose:[],split:[],exclude:[],uuid:null,consent:null,optOut:null},t=d.cookie||'';if(!t)return e;for(var n,i,o=/(?:^|;\s*)(?:(_vis_opt_exp_(\d+)_combi=([^;]*))|(_vis_opt_exp_(\d+)_combi_choose=([^;]*))|(_vis_opt_exp_(\d+)_split=([^:;]*))|(_vis_opt_exp_(\d+)_exclude=[^;]*)|(_vis_opt_out=([^;]*))|(_vwo_global_opt_out=[^;]*)|(_vwo_uuid=([^;]*))|(_vwo_consent=([^;]*)))/g;null!==(n=o.exec(t));)try{n[1]?e.combination.push({id:n[2],value:r(n[3])}):n[4]?e.combinationChoose.push({id:n[5],value:r(n[6])}):n[7]?e.split.push({id:n[8],value:r(n[9])}):n[10]?e.exclude.push({id:n[11]}):n[12]?e.optOut=r(n[13]):n[14]?e.optOut=!0:n[15]?e.uuid=r(n[16]):n[17]&&(i=r(n[18]),e.consent=i&&3<=i.length?i.substring(0,3):null)}catch(e){}return e}();function i(){var e=function(){if(w.VWO&&Array.isArray(w.VWO))for(var e=0;e<w.VWO.length;e++){var t=w.VWO[e];if(Array.isArray(t)&&('setVisitorId'===t[0]||'setSessionId'===t[0]))return!0}return!1}(),t='a='+account_id+'&u='+encodeURIComponent(w._vis_opt_url||d.URL)+'&vn='+version+'&ph=1'+('undefined'!=typeof platform?'&p='+platform:'')+'&st='+w.performance.now();e||((n=function(){var e,t=[],n={},i=w.VWO&&w.VWO.appliedCampaigns||{};for(e in i){var o=i[e]&&i[e].v;o&&(t.push(e+'-'+o+'-1'),n[e]=!0)}if(s&&s.combination)for(var r=0;r<s.combination.length;r++){var a=s.combination[r];n[a.id]||t.push(a.id+'-'+a.value)}return t.join('|')}())&&(t+='&c='+n),(n=function(){var e=[],t={};if(s&&s.combinationChoose)for(var n=0;n<s.combinationChoose.length;n++){var i=s.combinationChoose[n];e.push(i.id+'-'+i.value),t[i.id]=!0}if(s&&s.split)for(var o=0;o<s.split.length;o++)t[(i=s.split[o]).id]||e.push(i.id+'-'+i.value);return e.join('|')}())&&(t+='&cc='+n),(n=function(){var e={},t=[];if(w.VWO&&Array.isArray(w.VWO))for(var n=0;n<w.VWO.length;n++){var i=w.VWO[n];if(Array.isArray(i)&&'setVariation'===i[0]&&i[1]&&Array.isArray(i[1]))for(var o=0;o<i[1].length;o++){var r,a=i[1][o];a&&'object'==typeof a&&(r=a.e,a=a.v,r&&a&&(e[r]=a))}}for(r in e)t.push(r+'-'+e[r]);return t.join('|')}())&&(t+='&sv='+n)),s&&s.optOut&&(t+='&o='+s.optOut);var n=function(){var e=[],t={};if(s&&s.exclude)for(var n=0;n<s.exclude.length;n++){var i=s.exclude[n];t[i.id]||(e.push(i.id),t[i.id]=!0)}return e.join('|')}();return n&&(t+='&e='+n),s&&s.uuid&&(t+='&id='+s.uuid),s&&s.consent&&(t+='&consent='+s.consent),w.name&&-1<w.name.indexOf('_vis_preview')&&(t+='&pM=true'),w.VWO&&w.VWO.ed&&(t+='&ed='+w.VWO.ed),t}code={script:v,nonce:v&&v.nonce,library_tolerance:function(){return'undefined'!=typeof library_tolerance?library_tolerance:void 0},settings_tolerance:function(){return cc.sT||settings_tolerance},hide_element_style:function(){return'{'+(cc.hES||hide_element_style)+'}'},hide_element:function(){return performance.getEntriesByName('first-contentful-paint')[0]?'':'string'==typeof cc.hE?cc.hE:hide_element},getVersion:function(){return version},finish:function(e){var t;f||(f=!0,(t=d.getElementById('_vis_opt_path_hides'))&&t.parentNode.removeChild(t),e&&((new Image).src='https://dev.visualwebsiteoptimizer.com/ee.gif?a='+account_id+e))},finished:function(){return f},addScript:function(e){var t=d.createElement('script');t.type='text/javascript',e.src?t.src=e.src:t.text=e.text,v&&t.setAttribute('nonce',v.nonce),d.getElementsByTagName('head')[0].appendChild(t)},load:function(e,t){t=t||{};var n=new XMLHttpRequest;n.open('GET',e,!0),n.withCredentials=!t.dSC,n.responseType=t.responseType||'text',n.onload=function(){if(t.onloadCb)return t.onloadCb(n,e);200===n.status?_vwo_code.addScript({text:n.responseText}):_vwo_code.finish('&e=loading_failure:'+e)},n.onerror=function(){if(t.onerrorCb)return t.onerrorCb(e);_vwo_code.finish('&e=loading_failure:'+e)},n.send()},init:function(){var e,t=this.settings_tolerance();w._vwo_settings_timer=setTimeout(function(){_vwo_code.finish()},t),'body'!==this.hide_element()?(n=d.createElement('style'),e=(t=this.hide_element())?t+this.hide_element_style():'',t=d.getElementsByTagName('head')[0],n.setAttribute('id','_vis_opt_path_hides'),v&&n.setAttribute('nonce',v.nonce),n.setAttribute('type','text/css'),n.styleSheet?n.styleSheet.cssText=e:n.appendChild(d.createTextNode(e)),t.appendChild(n)):(n=d.getElementsByTagName('head')[0],(e=d.createElement('div')).style.cssText='z-index: 2147483647 !important;position: fixed !important;left: 0 !important;top: 0 !important;width: 100% !important;height: 100% !important;background: white !important;',e.setAttribute('id','_vis_opt_path_hides'),e.classList.add('_vis_hide_layer'),n.parentNode.insertBefore(e,n.nextSibling));var n='https://dev.visualwebsiteoptimizer.com/j.php?'+i();-1!==w.location.search.indexOf('_vwo_xhr')?this.addScript({src:n}):this.load(n+'&x=true',{l:1})}};w._vwo_code=code;code.init();})();
         </script>
-        <!-- End VWO Async SmartCode -->
+        <!-- End Wingify Async SmartCode -->
 
     <?php endif; ?>
     <?php
@@ -169,11 +169,11 @@ add_action( 'admin_notices', 'vwo_clhf_warn_nosettings' );
  * @return void
  */
 function vwo_clhf_plugin_menu() {
-    add_options_page( 'Visual Website Optimizer', 'VWO', 'create_users', 'clhf_vwo_options', 'vwo_clhf_plugin_options' );
+    add_options_page( 'Wingify', 'Wingify', 'create_users', 'clhf_vwo_options', 'vwo_clhf_plugin_options' );
 }
 
 /**
- * Register the settings for the VWO options.
+ * Register the settings for the Wingify options.
  *
  * @return void
  */
@@ -202,7 +202,7 @@ function vwo_clhf_register_mysettings() {
 
 
 /**
- * Generates the action vwo_clhf_headercode function.
+ * Generates the action wingify_clhf_headercode function.
  *
  * @throws Exception Description of exception.
  * @return void
@@ -269,7 +269,8 @@ function vwo_clhf_plugin_options() {
     ?>
     <div class="wrap">
         <h1 style="margin-bottom: 15px;display: flex; align-items: center; gap:6px;">
-         <svg xmlns="http://www.w3.org/2000/svg" width="200" height="46.212" fill="none" viewBox="0 0 300 46.212"><path fill="#3100BE" d="M232.627 30.085c0 -1.501 0.889 -2.389 2.758 -2.665l4.32 -0.613v1.164c0 2.604 -1.869 4.442 -4.442 4.442 -1.746 0 -2.635 -0.827 -2.635 -2.329M190.961 19.455v-5.667h8.089c2.114 0 2.972 0.827 2.972 2.818 0 1.961 -0.889 2.88 -2.972 2.88zm0 11.274v-6.25h7.936c2.604 0 3.89 0.981 3.89 2.972 0 2.114 -1.348 3.248 -3.89 3.248zm-24.723 -6.739 3.523 -9.742h0.245l3.492 9.742zm107.748 11.764h4.504V31.28h-2.696c-1.103 0 -1.501 -0.398 -1.501 -1.501v-8.273h6.617l5.82 14.645c0.552 1.379 -0.092 2.267 -1.623 2.267h-3.798v4.473h3.92c3.646 0 5.331 -1.133 6.464 -4.32l7.69 -21.507v-0.092h-5.576l-4.074 13.112h-0.245l-4.504 -13.112h-10.722V11.061h-5.27v5.913h-3.095v4.504h3.125v9.25c0 3.677 1.348 5.025 4.963 5.025m-40.317 0.795c2.604 0 4.748 -1.071 6.036 -2.971h0.245c0.552 1.532 2.267 2.605 4.442 2.605 1.838 0 3.217 -0.797 4.075 -2.359 1.93 1.532 4.657 2.389 7.843 2.389 5.698 0 9.344 -2.758 9.344 -7.015 0 -3.248 -2.145 -4.933 -7.292 -5.545l-2.42 -0.276c-1.839 -0.184 -2.39 -0.521 -2.39 -1.287 0 -1.072 1.011 -1.715 2.665 -1.715 1.777 0 3.37 0.827 4.197 2.205l4.718 -2.053c-1.501 -2.604 -4.902 -4.288 -8.945 -4.288 -4.841 0 -7.936 2.389 -7.936 6.127 0 3.217 2.329 5.117 6.955 5.73l2.543 0.367c1.808 0.245 2.604 0.705 2.604 1.623 0 1.133 -1.256 1.992 -3.585 1.992 -2.603 0 -4.503 -1.073 -5.269 -2.972l-2.358 1.502c-0.889 0.582 -1.624 0.827 -2.421 0.858 -1.286 -0.092 -1.777 -0.552 -1.777 -1.685V23.038c0 -4.657 -2.543 -6.74 -8.241 -6.74 -5.178 0 -7.996 1.808 -8.793 5.576l5.361 0.95c0.307 -1.439 1.502 -2.236 3.37 -2.236 2.052 0 3.033 0.858 3.033 2.696v0.183l-6.005 0.889c-3.952 0.582 -6.311 2.911 -6.311 6.372 0 3.492 2.481 5.821 6.311 5.821m-16.513 -0.795h5.821V13.786h9.068v-5.024h-23.161v5.024h8.272zm-31.985 0h15.196c5.3 0 8.394 -2.758 8.394 -7.414 0 -3.523 -1.808 -5.729 -5.208 -6.464v-0.245c2.971 -1.011 4.442 -3.033 4.442 -6.158 0 -4.381 -2.789 -6.709 -8.058 -6.709h-14.767zm-29.043 0h5.882l2.421 -6.74h10.876l2.42 6.74h6.158v-0.092l-10.386 -26.93h-7.015l-10.355 26.93zM155.76 0l-8.272 35.753h-33.516l7.965 3.4 -0.613 2.666h-18.045l4.473 2.053 -0.459 2.083h-9.099l3.339 -14.492h5.3l3.615 -15.409h10.048L124.173 0z"/><path fill="#BF3078" d="M76.678 8.619c-0.564 0 -1.24 0 -1.804 0.111l-3.27 5.695c1.466 -0.893 3.27 -1.339 5.074 -1.339 5.864 0 10.713 4.801 10.713 10.608 0 5.806 -4.849 10.608 -10.713 10.608s-10.599 -4.689 -10.712 -10.496l-3.383 5.695c2.255 5.471 7.78 9.267 13.983 9.267 8.344 0 15.223 -6.811 15.223 -15.073 0.112 -8.263 -6.766 -15.074 -15.111 -15.074"/><path fill="#802050" d="m30.671 24.363 2.593 -4.467 5.864 9.938 6.765 -11.501 6.766 11.5 11.615 -19.54c0.564 -1.005 1.691 -1.675 2.932 -1.675h3.27L52.659 38.767l-6.765 -11.5 -6.766 11.5z"/><path fill="#26134D" d="M35.52 8.619 17.705 38.767 -0.001 8.619h3.27c1.241 0 2.368 0.67 2.932 1.674L17.705 29.946l11.614 -19.652c0.564 -1.005 1.692 -1.675 2.932 -1.675z"/></svg><span>Configuration</span>
+        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="158.594" height="50" viewBox="0 0 158.594 50" fill="none"><svg x="0.01" y="0" width="158.571" height="50" viewBox="0 0 86.719 27.344" preserveAspectRatio="xMidYMid meet" overflow="visible"><path fill-rule="evenodd" clip-rule="evenodd" d="M56.674 5.457h-5.383c-0.015 0 -0.032 0.013 -0.032 0.038 0 0.063 0.089 0.085 0.089 0.085 3.02 0.655 5.652 2.813 5.652 5.974 0 3.506 -2.717 6.393 -6.869 6.393 -0.906 0 -1.551 -0.131 -1.996 -0.259 -0.806 1.51 -0.914 1.794 -0.914 1.955 0 0.242 0.297 0.351 0.722 0.351h8.78l-2.289 4.832H45.979c-1.484 0 -2.617 -0.702 -2.617 -1.969 -0.025 -1.241 0.78 -2.266 3.322 -5.612 -2.24 -1.025 -3.623 -3.075 -3.623 -5.53s1.133 -5.098 6.039 -6.906l7.573 -2.805zm-8.623 1.328a0.07 0.07 0 0 0 -0.084 0.035c-0.125 0.238 -0.62 1.293 -0.59 2.954 0.106 5.73 4.184 6.423 4.603 6.479a0.063 0.063 0 0 0 0.059 -0.024c0.113 -0.148 0.594 -0.898 0.594 -2.977 0 -4.922 -4.059 -6.309 -4.582 -6.467" fill="#212326"/><path d="m73.68 3.131 -3.87 -0.984a0.078 0.078 0 0 0 -0.095 0.089l0.594 3.175h7.55l3.346 10.873 1.61 -10.873h3.397l-6.089 19.415h-5.531l4.756 -4.76h-2.018L73.162 7.992h-2.325v12.075H65.578V7.991h-1.56l1.56 -2.605C67.641 1.829 69.151 0.3 73.68 0z" fill="#212326"/><path d="M15.866 12.14a0.077 0.077 0 0 0 0.144 -0.02l1.402 -6.709h3.472l-6.266 15.031 -4.126 -7.69 -4.252 7.69L0 5.411h5.888l2.464 6.759c0.023 0.063 0.108 0.069 0.141 0.011l3.795 -6.795z" fill="#212326"/><path d="M26.622 20.066h-5.284V5.411h5.284z" fill="#212326"/><path d="M38.834 5.162c2.148 0.041 3.293 1.388 3.293 3.656v11.248H36.844V9.781c0 -1.102 -0.319 -1.754 -1.401 -1.754 -0.703 0 -1.52 0.558 -2.021 0.891v11.148h-5.284V5.411h5.284v1.679c1.963 -1.078 3.749 -1.93 5.309 -1.93z" fill="#212326"/><path d="M63.349 20.066h-5.284V5.411h5.284z" fill="#212326"/><path d="M26.622 3.532h-5.284V0.15h5.284z" fill="#212326"/><path d="M63.349 3.532h-5.284V0.15h5.284z" fill="#212326"/><path d="m8.859 24.231 -0.248 -0.081v-0.082h0.552v0.086l-0.166 0.066 -0.783 2.111c-0.067 0.177 -0.177 0.298 -0.351 0.298a0.206 0.206 0 0 1 -0.209 -0.205c0 -0.113 0.092 -0.202 0.202 -0.202 0.099 0 0.156 0.07 0.213 0.138l0.011 0.01 0.191 -0.506 -0.634 -1.658 -0.152 -0.053v-0.085h0.702v0.086l-0.177 0.063 0.432 1.18z" fill="#212326"/><path d="M6.367 25.799c-0.159 0 -0.307 -0.035 -0.399 -0.074l-0.131 -0.053V23.406l-0.22 -0.096v-0.042l0.552 -0.166v1.201c0.081 -0.092 0.277 -0.28 0.549 -0.28 0.326 0 0.652 0.23 0.652 0.794 0 0.527 -0.51 0.984 -1.002 0.984m-0.198 -0.294c0.011 0.014 0.138 0.148 0.365 0.148 0.255 0 0.5 -0.219 0.5 -0.726 0 -0.404 -0.241 -0.702 -0.507 -0.702a0.531 0.531 0 0 0 -0.358 0.152z" fill="#212326"/><path d="M34.082 24.97c0 -0.154 0.091 -0.245 0.284 -0.273l0.445 -0.063v0.12a0.44 0.44 0 0 1 -0.457 0.457c-0.18 0 -0.271 -0.086 -0.271 -0.24m-4.285 -1.094v-0.582h0.832c0.217 0 0.305 0.085 0.305 0.289 0 0.202 -0.091 0.297 -0.305 0.297zm0 1.16v-0.643h0.816q0.401 0 0.4 0.306c0 0.217 -0.139 0.334 -0.4 0.334zm-2.542 -0.693 0.362 -1.002h0.026l0.359 1.002zm11.081 1.21h0.463v-0.461h-0.277c-0.113 0 -0.155 -0.041 -0.155 -0.154v-0.851h0.68l0.599 1.506c0.056 0.141 -0.009 0.233 -0.167 0.233h-0.391v0.461h0.403c0.375 0 0.548 -0.117 0.665 -0.445l0.791 -2.211v-0.01h-0.573l-0.419 1.348h-0.025l-0.463 -1.348h-1.103v-0.608h-0.541v0.608h-0.319v0.463h0.322v0.952c0 0.378 0.138 0.517 0.51 0.517m-4.147 0.081c0.268 0 0.489 -0.109 0.621 -0.305h0.025c0.057 0.156 0.234 0.267 0.457 0.267a0.445 0.445 0 0 0 0.419 -0.242c0.198 0.157 0.48 0.245 0.807 0.245 0.586 0 0.961 -0.284 0.961 -0.722 0 -0.334 -0.22 -0.507 -0.75 -0.57l-0.249 -0.028c-0.189 -0.019 -0.245 -0.054 -0.245 -0.133 0 -0.109 0.104 -0.176 0.273 -0.176 0.184 0 0.347 0.085 0.432 0.227l0.485 -0.211c-0.154 -0.268 -0.504 -0.441 -0.92 -0.441 -0.498 0 -0.816 0.246 -0.816 0.63q0.001 0.496 0.716 0.589l0.261 0.038c0.186 0.025 0.268 0.072 0.268 0.166 0 0.117 -0.129 0.205 -0.369 0.205 -0.267 0 -0.463 -0.111 -0.541 -0.306l-0.242 0.155a0.469 0.469 0 0 1 -0.25 0.088c-0.132 -0.009 -0.182 -0.057 -0.182 -0.173v-0.693c0 -0.479 -0.262 -0.694 -0.848 -0.694 -0.533 0 -0.823 0.186 -0.905 0.573l0.552 0.098c0.031 -0.148 0.154 -0.23 0.347 -0.23 0.211 0 0.312 0.088 0.312 0.277v0.019l-0.617 0.091c-0.406 0.06 -0.649 0.299 -0.649 0.655 0 0.359 0.255 0.598 0.648 0.598m-1.698 -0.081h0.598v-2.259h0.933v-0.517h-2.383v0.517h0.852zm-3.29 0h1.563c0.545 0 0.863 -0.284 0.863 -0.763 0 -0.362 -0.186 -0.589 -0.535 -0.664v-0.026c0.305 -0.104 0.457 -0.313 0.457 -0.633 0 -0.451 -0.287 -0.691 -0.829 -0.691h-1.519zm-2.988 0h0.605l0.249 -0.694h1.118l0.249 0.694h0.633v-0.01l-1.068 -2.77h-0.721l-1.066 2.77zM26.177 21.875l-0.851 3.677h-3.447l0.82 0.349 -0.063 0.274h-1.856l0.461 0.211 -0.048 0.214h-0.936l0.344 -1.49h0.545l0.372 -1.585h1.034l0.378 -1.651z" fill="#212326"/><path d="M18.043 22.762c-0.059 0 -0.128 0 -0.186 0.012l-0.336 0.586c0.151 -0.092 0.336 -0.138 0.522 -0.138 0.603 0 1.102 0.494 1.102 1.091 0 0.598 -0.498 1.091 -1.102 1.091a1.102 1.102 0 0 1 -1.102 -1.08l-0.348 0.586a1.563 1.563 0 0 0 1.438 0.953c0.859 0 1.566 -0.701 1.566 -1.551 0.012 -0.849 -0.695 -1.55 -1.555 -1.55" fill="#212326"/><path d="m13.311 24.381 0.266 -0.459 0.603 1.022 0.695 -1.183 0.697 1.183 1.195 -2.009a0.344 0.344 0 0 1 0.302 -0.172h0.336l-1.832 3.1 -0.696 -1.183 -0.695 1.183z" fill="#212326"/><path d="m13.809 22.762 -1.832 3.101L10.156 22.762h0.336c0.127 0 0.244 0.069 0.302 0.172l1.183 2.022 1.195 -2.021a0.344 0.344 0 0 1 0.302 -0.172z" fill="#212326"/></svg></svg>
+        <span>Configuration</span>
         </h1>
 
         <form method="post" action="options.php" novalidate>
@@ -315,9 +316,9 @@ function vwo_clhf_render_general_settings() {
             <?php
             vwo_clhf_render_field([
                 'id' => 'vwo_id',
-                'label' => 'Your VWO Account ID',
+                'label' => 'Your Wingify Account ID',
                 'type' => 'text',
-                'tooltip' => 'Enter your VWO Account ID here',
+                'tooltip' => 'Enter your Wingify Account ID here',
             ]);
             vwo_clhf_render_field([
                 'id' => 'code_type',
@@ -339,15 +340,15 @@ function vwo_clhf_render_general_settings() {
             ?>
         </div>
         <div class="main-grid__description" style="width:350px;">
-        <div style="font-size: 18px; font-weight: 700; color: #000000; margin-bottom: 8px;">New to VWO (Wingify)?</div>
+        <div style="font-size: 18px; font-weight: 700; color: #000000; margin-bottom: 8px;">New to Wingify?</div>
             <div style="font-size: 14px; color: #757575; font-weight: 400; line-height: 20px; margin-bottom: 20px;">Create a free account to start optimising your website, no credit card required.</div>
             <div>
-            <a  target="_blank" href="https://vwo.com/free-trial/?utm_source=integration_wordpress&utm_medium=referral&utm_campaign=plugin_page&utm_content=config_screen_banner" style="text-decoration: none; display: block; width: 162px; background: #fff; color: #2271B1; border: 1px solid #2271B1; padding: 10px 12px; font-size: 14px; font-weight: 600; cursor: pointer; text-align: center; border-radius: 8px;">
+            <a  target="_blank" href="https://wingify.com/free-trial/?utm_source=integration_wordpress&utm_medium=referral&utm_campaign=plugin_page&utm_content=config_screen_banner" style="text-decoration: none; display: block; width: 162px; background: #fff; color: #2271B1; border: 1px solid #2271B1; padding: 10px 12px; font-size: 14px; font-weight: 600; cursor: pointer; text-align: center; border-radius: 8px;">
              Get Started for Free</a>
             <div>
             <div style="margin-bottom: 28px; margin-top: 20px;">
-                <div style="font-weight: 600; color: #363A42; font-size: 14px; margin-bottom: 8px;">VWO (Wingify) Dashboard?</div>
-                <div style="font-size: 14px; color: #757575; font-weight: 400;">Visit our knowledge base to learn how to use the VWO dashboard.</div>
+                <div style="font-weight: 600; color: #363A42; font-size: 14px; margin-bottom: 8px;">Wingify Dashboard?</div>
+                <div style="font-size: 14px; color: #757575; font-weight: 400;">Visit our knowledge base to learn how to use the Wingify dashboard.</div>
                  <a href="https://app.wingify.com" target="_blank" style="display: inline-flex; align-items: center; color: #2271B1; border-radius: 8px; padding: 6px 12px; font-size: 12px; font-weight: 600; cursor: pointer; text-decoration: none; margin-top: 10px; border: 1px solid #2271B1;">
                     <span style="margin-right: 4px;">Go to Dashboard</span>
                     <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 32 32">
@@ -356,7 +357,7 @@ function vwo_clhf_render_general_settings() {
                 </a>
             </div>
             <div style="font-size: 13px;">
-                Need help? Visit our <a style="color: inherit;" href="https://help.vwo.com/hc/en-us/articles/360020745993-Integrating-VWO-With-WordPress">Knowledge Base</a> for guides and FAQs.
+                Need help? Visit our <a style="color: inherit;" href="https://help.wingify.com/hc/en-us/articles/59247859917465-Integrate-Wingify-with-WordPress">Knowledge Base</a> for guides and FAQs.
             </div>
         </div>
     </main>
@@ -404,7 +405,7 @@ function vwo_clhf_render_advanced_settings() {
             'id' => 'ignore_js',
             'label' => 'Skip Deferred Execution',
             'type' => 'checkbox',
-            'tooltip' => 'Skip deferred execution of the VWO script',
+            'tooltip' => 'Skip deferred execution of the Wingify script',
         ]);
         ?>
     </div>
@@ -440,25 +441,25 @@ function vwo_clhf_render_woocommerce_settings() {
                 'id' => 'track_product_view',
                 'label' => 'Product Viewed',
                 'description' => 'This event logs an instance where a customer views a product details page.',
-                'readmore_link' => 'https://help.vwo.com/hc/en-us/articles/360020745993-Integrating-VWO-With-WordPress'
+                'readmore_link' => 'https://help.wingify.com/hc/en-us/articles/59247859917465-Integrate-Wingify-with-WordPress'
             ]);
             vwo_clhf_render_woocommerce_event_tracking([
                 'id' => 'track_add_to_cart',
                 'label' => 'Add To Cart',
                 'description' => 'This event logs an instance where a customer adds a product to their cart.',
-                'readmore_link' => 'https://help.vwo.com/hc/en-us/articles/360020745993-Integrating-VWO-With-WordPress'
+                'readmore_link' => 'https://help.wingify.com/hc/en-us/articles/59247859917465-Integrate-Wingify-with-WordPress'
             ]);
             vwo_clhf_render_woocommerce_event_tracking([
                 'id' => 'track_remove_from_cart',
                 'label' => 'Product Removed From Cart',
                 'description' => 'This event logs an instance where a customer removes a product from their cart.',
-                'readmore_link' => 'https://help.vwo.com/hc/en-us/articles/360020745993-Integrating-VWO-With-WordPress'
+                'readmore_link' => 'https://help.wingify.com/hc/en-us/articles/59247859917465-Integrate-Wingify-with-WordPress'
             ]);
             vwo_clhf_render_woocommerce_event_tracking([
                 'id' => 'track_purchase',
                 'label' => 'Purchase Order',
                 'description' => 'This event logs an instance where a customer completes a purchase.',
-                'readmore_link' => 'https://help.vwo.com/hc/en-us/articles/360020745993-Integrating-VWO-With-WordPress'
+                'readmore_link' => 'https://help.wingify.com/hc/en-us/articles/59247859917465-Integrate-Wingify-with-WordPress'
             ]);
             ?>
         </div>
@@ -823,7 +824,7 @@ function vwo_clhf_warn_nosettings() {
 
     $clhf_option = get_option( 'vwo_id' );
     if ( ! $clhf_option || $clhf_option < 1 ) {
-        echo "<div id='vwo-warning' class='updated fade'><p><strong>VWO is almost ready.</strong> You must <a href=\"options-general.php?page=clhf_vwo_options\">enter your Account ID</a> for it to work.</p></div>";
+        echo "<div id='vwo-warning' class='updated fade'><p><strong>Wingify is almost ready.</strong> You must <a href=\"options-general.php?page=clhf_vwo_options\">enter your Account ID</a> for it to work.</p></div>";
     }
 }
 
@@ -864,7 +865,7 @@ function vwo_clhf_validate_settings() {
     // Validate VWO Account ID
     $vwo_id = get_option('vwo_id');
     if (empty($vwo_id) || !is_numeric($vwo_id)) {
-        add_settings_error('vwo_clhf_options', 'vwo_id', 'Please enter a valid VWO Account ID.', 'error');
+        add_settings_error('vwo_clhf_options', 'vwo_id', 'Please enter a valid Wingify Account ID.', 'error');
         $has_errors = true;
     }
 
@@ -942,7 +943,7 @@ function vwo_clhf_sanitize_settings($input) {
     // Sanitize and validate VWO Account ID
     $vwo_id = sanitize_text_field($input);
     if (empty($vwo_id) || !is_numeric($vwo_id)) {
-        add_settings_error('vwo_clhf_options', 'vwo_id', 'Please enter a valid VWO Account ID.', 'error');
+        add_settings_error('vwo_clhf_options', 'vwo_id', 'Please enter a valid Wingify Account ID.', 'error');
     }
 
     // Add more sanitization and validation for other fields as needed

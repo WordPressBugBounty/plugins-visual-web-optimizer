@@ -5,13 +5,13 @@
  * Plugin URI: https://wingify.com/
  * Description: Wingify (formerly VWO & AB Tasty) is the all-in-one platform that helps you conduct visitor research, build an optimization roadmap, and run continuous experimentation. Simply enable the plugin and start running tests on your WordPress website without doing any other code changes. Visit <a href="https://wingify.com/">Wingify</a> for more details.
  * Author: Wingify
- * Version: 4.16
+ * Version: 4.17
  * visual-website-optimizer.php
  * Author URI: https://wingify.com/
  *
  * @package Wingify
  * @author Wingify
- * @version 4.16
+ * @version 4.17
  **/
 
 /**
@@ -66,12 +66,89 @@ function vwo_clhf_ignore_js_attr() {
 }
 
 /**
+ * Synchronous SmartCode 3.0.
+ *
+ * @param int $vwo_id Account ID.
+ * @return string
+ */
+function vwo_clhf_script_sync_code_v3( $vwo_id = 0 ) {
+    $base = vwo_clhf_smartcode_base_url();
+    $src  = esc_url( $base . '/tag/' . $vwo_id . '.js' );
+    ob_start();
+    // @codingStandardsIgnoreStart
+    ?>
+    <?php if ( vwo_clhf_is_wingify_account() ) : ?>
+        <!-- Start Wingify SmartCode -->
+        <script src="<?php echo $src; ?>" <?php echo vwo_clhf_ignore_js_attr(); ?>></script>
+        <!-- End Wingify SmartCode -->
+    <?php else : ?>
+        <!-- Start VWO Synchronous SmartCode 3.0-->
+        <script src="<?php echo $src; ?>" <?php echo vwo_clhf_ignore_js_attr(); ?>></script>
+        <!-- End VWO Synchronous SmartCode 3.0 -->
+    <?php endif; ?>
+    <?php
+    // @codingStandardsIgnoreEnd
+    return ob_get_clean();
+}
+
+/**
+ * Asynchronous SmartCode 3.0.
+ *
+ * @param int $vwo_id Account ID.
+ * @param int $settings_tolerance Settings timeout.
+ * @return string
+ */
+function vwo_clhf_script_async_code_v3( $vwo_id, $settings_tolerance ) {
+    $base = esc_url( vwo_clhf_smartcode_base_url() );
+    ob_start();
+    // @codingStandardsIgnoreStart
+    ?>
+    <?php if ( vwo_clhf_is_wingify_account() ) : ?>
+        <!-- Start Wingify Async V3.0 SmartCode -->
+        <link rel="preconnect" href="<?php echo $base; ?>"/>
+        <script type="text/javascript" <?php echo vwo_clhf_ignore_js_attr(); ?>>
+        window._wingify_code || (function() {
+            var account_id = <?php echo esc_html( $vwo_id ); ?>,
+                version = 3.0,
+                settings_tolerance = <?php echo esc_html( $settings_tolerance ); ?>,
+                hide_element = 'body',
+                hide_element_style =
+                'opacity:0 !important;filter:alpha(opacity=0) !important;background:none !important;transition:none !important';
+            /* DO NOT EDIT BELOW THIS LINE */
+            var n=window,i=document;if(-1<i.URL.indexOf('__wingify_disable__')||n._wingify_code)return;var t=!1,r=i.currentScript,e={sT:settings_tolerance,hES:hide_element_style,hE:hide_element};try{e=Object.assign(e,JSON.parse(localStorage.getItem('_wingify_'+account_id+'_config')))}catch(e){}var code={script:r,nonce:r.nonce,settings_tolerance:function(){return e.sT},hide_element:function(){return performance.getEntriesByName('first-contentful-paint')[0]?'':e.hE},hide_element_style:function(){return'{'+e.hES+'}'},getVersion:function(){return version},finish:function(){var e;!t&&(t=!0,e=i.getElementById('_vis_opt_path_hides'))&&e.parentNode.removeChild(e)},finished:function(){return t},addScript:function(e){var t=i.createElement('script');t.src=e,r.nonce&&t.setAttribute('nonce',r.nonce),t.fetchPriority='high',i.head.appendChild(t)},init:function(){n._settings_timer=setTimeout(function(){code.finish()},this.settings_tolerance());var e,t=this.hide_element();t&&((e=i.createElement('style')).id='_vis_opt_path_hides',r.nonce&&e.setAttribute('nonce',r.nonce),e.textContent=t+this.hide_element_style(),i.head.appendChild(e)),this.addScript('<?php echo $base; ?>/tag/'+account_id+'.js')}};n._wingify_code=code;code.init();})();
+        </script>
+        <!-- End Wingify Async SmartCode -->
+    <?php else : ?>
+        <!-- Start VWO Async V3.0 SmartCode -->
+        <link rel="preconnect" href="<?php echo $base; ?>"/>
+        <script type="text/javascript" id="vwoCode" <?php echo vwo_clhf_ignore_js_attr(); ?>>
+        window._vwo_code || (function() {
+            var account_id = <?php echo esc_html( $vwo_id ); ?>,
+                version = 3.0,
+                settings_tolerance = <?php echo esc_html( $settings_tolerance ); ?>,
+                hide_element = 'body',
+                hide_element_style =
+                'opacity:0 !important;filter:alpha(opacity=0) !important;background:none !important;transition:none !important';
+            /* DO NOT EDIT BELOW THIS LINE */
+            var n=window,i=document;if(-1<i.URL.indexOf('__vwo_disable__')||n._vwo_code)return;var t=!1,r=i.currentScript,e={sT:settings_tolerance,hES:hide_element_style,hE:hide_element};try{e=Object.assign(e,JSON.parse(localStorage.getItem('_vwo_'+account_id+'_config')))}catch(e){}var code={script:r,nonce:r.nonce,settings_tolerance:function(){return e.sT},hide_element:function(){return performance.getEntriesByName('first-contentful-paint')[0]?'':e.hE},hide_element_style:function(){return'{'+e.hES+'}'},getVersion:function(){return version},finish:function(){var e;!t&&(t=!0,e=i.getElementById('_vis_opt_path_hides'))&&e.parentNode.removeChild(e)},finished:function(){return t},addScript:function(e){var t=i.createElement('script');t.src=e,r.nonce&&t.setAttribute('nonce',r.nonce),t.fetchPriority='high',i.head.appendChild(t)},init:function(){n._vwo_settings_timer=setTimeout(function(){code.finish()},this.settings_tolerance());var e,t=this.hide_element();t&&((e=i.createElement('style')).id='_vis_opt_path_hides',r.nonce&&e.setAttribute('nonce',r.nonce),e.textContent=t+this.hide_element_style(),i.head.appendChild(e)),this.addScript('<?php echo $base; ?>/tag/'+account_id+'.js')}};n._vwo_code=code;code.init();})();
+        </script>
+        <!-- End VWO Async SmartCode -->
+    <?php endif; ?>
+    <?php
+    // @codingStandardsIgnoreEnd
+    return ob_get_clean();
+}
+
+/**
  * Generate Synchronous Code
  *
  * @param int $vwo_id integer. Defaults to 0.
  * @return string string for sync script.
  */
 function get_vwo_clhf_script_sync_code( $vwo_id = 0 ) {
+    if ( vwo_clhf_is_smartcode_v3() ) {
+        return vwo_clhf_script_sync_code_v3( $vwo_id );
+    }
     ob_start();
     // @codingStandardsIgnoreStart
     ?>
@@ -100,6 +177,9 @@ function get_vwo_clhf_script_sync_code( $vwo_id = 0 ) {
  * @return string String for async script.
  */
 function get_vwo_clhf_script_async_code( $vwo_id, $settings_tolerance, $library_tolerance, $use_existing_jquery ) {
+    if ( vwo_clhf_is_smartcode_v3() ) {
+        return vwo_clhf_script_async_code_v3( $vwo_id, $settings_tolerance );
+    }
     ob_start();
     // @codingStandardsIgnoreStart
     ?>
@@ -213,7 +293,7 @@ function vwo_clhf_headercode() {
     $code_type = get_option( 'code_type' );
 
     if ( $vwo_id ) {
-        if ( null === get_option( 'is_wingify_account', null ) ) {
+        if ( null === get_option( 'is_wingify_account', null ) || false === get_option( 'vwo_dslv', false ) ) {
             vwo_clhf_fetch_and_save_account_info( $vwo_id );
         }
 
@@ -884,6 +964,24 @@ function vwo_clhf_is_wingify_account() {
 }
 
 /**
+ * Whether the account should use SmartCode 3.0.
+ *
+ * @return bool
+ */
+function vwo_clhf_is_smartcode_v3() {
+    return 3 === (int) get_option( 'vwo_dslv', 0 );
+}
+
+/**
+ * SmartCode host for the active account type.
+ *
+ * @return string
+ */
+function vwo_clhf_smartcode_base_url() {
+    return vwo_clhf_is_wingify_account() ? 'https://edge.wingify.net' : 'https://dev.visualwebsiteoptimizer.com';
+}
+
+/**
  * Fetch account info from VWO API and save collUrl and is_wingify_account options.
  *
  * @param int|string $vwo_id VWO Account ID.
@@ -934,7 +1032,10 @@ function vwo_clhf_fetch_and_save_account_info( $vwo_id ) {
     } else {
         update_option( 'is_wingify_account', '' );
     }
-   
+
+    $dslv = ( isset( $data['dslv'] ) && is_numeric( $data['dslv'] ) ) ? (int) $data['dslv'] : 0;
+    update_option( 'vwo_dslv', (string) $dslv );
+
     return $coll_url;
 }
 
@@ -952,6 +1053,9 @@ function vwo_clhf_sanitize_settings($input) {
     if ($current_vwo_id !== $vwo_id) {
         update_option( 'vwo_coll_url', '' );
         delete_option( 'is_wingify_account' );
+        delete_option( 'vwo_dslv' );
+    }
+    if ( ! empty( $vwo_id ) && is_numeric( $vwo_id ) && ( $current_vwo_id !== $vwo_id || false === get_option( 'vwo_dslv', false ) ) ) {
         vwo_clhf_fetch_and_save_account_info( $vwo_id );
     }
     return $vwo_id;

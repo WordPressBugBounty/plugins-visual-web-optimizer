@@ -5,7 +5,7 @@ Plugin URI: https://wingify.com/
 Tags: vwo, wingify, a/b testing, woocommerce tracking, split testing
 Requires at least: 2.7
 Tested up to: 7.0
-Stable tag: 4.16
+Stable tag: 4.17
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -113,6 +113,9 @@ No, this plugin is sufficient by itself
   - orderId, productId, productSku, productPrice, productQuantity, discount, shippingPrice, totalTax, totalPrice, currencyCode
 
 == Upgrade Notice ==
+= 4.17 =
+Uses SmartCode 3.0 when your account's accInfo dslv value is 3. Other accounts keep SmartCode 2.2. Your Account ID stays the same; no extra setup is required.
+
 = 4.16 =
 Updates the Wingify plugin icon and WordPress.org listing. Your Account ID and SmartCode settings stay the same; no extra setup is required.
 
@@ -141,6 +144,10 @@ VWO SmartCode 2.2 updated with improved performance and reliability.
 Major update: New settings UI, WooCommerce support added, and multiple bug fixes. Upgrade recommended for improved tracking and compatibility.
 
 == Changelog ==
+= 4.17 =
+* Use SmartCode 3.0 for Wingify accounts when  SmartCode3.0 enabled.
+* Keep SmartCode 2.2 for every other account.
+
 = 4.16 =
 * Updated plugin icon and listing copy.
 
